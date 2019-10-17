@@ -13,8 +13,8 @@
         <div class="sidebar">
 
             <ul class="sidebar-buttons">
-                <li class="sign-in-button"><a href="#">Sign In</a></li>
-                <li><a href="#">Profile</a></li>
+                <li class="sign-in-button"><a href="@Url.Action("Index", "Login")">Sign In</a></li>
+                <li><a href="@Url.Action("UserProfile", "Home", Session["UserID"])">Profile</a></li>
                 <li><a href="#">Upload</a></li>
                 <li><a href="#">Shuffle Video</a></li>
                 <li><a href="#">About</a></li>
@@ -31,30 +31,7 @@
 
             <div class="main-content">
                 @RenderBody()
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
-                jhjdsc<br />
+                
                 <p>© Nine Muses 2019</p>
             </div>
         </div>
