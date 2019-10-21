@@ -23,8 +23,10 @@ namespace NineMuses
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/icons.css",
+                      "~/Content/Layout.css",
+                      "~/Content/index.css",
+                      "~/Content/assets.css"));
         }
     }
 }
