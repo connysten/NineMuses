@@ -13,6 +13,11 @@ namespace NineMuses.Controllers
             return View();
         }
 
+        public ActionResult Video()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

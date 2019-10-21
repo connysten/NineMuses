@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title</title>
-    @*<link rel="stylesheet" type="text/css" href="~/Content/Layout.css" />*@
     @Styles.Render("~/Content/css")
 </head>
 <body>
@@ -12,7 +11,7 @@
     <div class="main-wrapper">
 
         <div class="topbar">
-            <a href="#" class="main-icon ma-">Nine Muses<i class="fas fa-play-circle fa-fw mar-5-l" style="color:#1d3557;"></i></a>
+            <a href="@Url.Action("Index", "Home")" class="main-icon ma-">Nine Muses<i class="fas fa-play-circle fa-fw mar-5-l" style="color:#1d3557;"></i></a>
             
             <div class="search-wrapper">
                 <form class="search-box">
@@ -38,8 +37,6 @@
 
                 <li class="footer">© Nine Muses 2019</li>
             </ul>
-
-           
         </div>
 
 

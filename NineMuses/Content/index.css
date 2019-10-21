@@ -3,10 +3,10 @@
     border-bottom: 1px solid #e0e0e0;
 }
 
-.gridbox{
-    display:grid;
+.gridbox {
+    display: grid;
     grid-row-gap: 0;
-    margin-top:10px;
+    margin-top: 10px;
 }
 
     .gridbox.big {
@@ -17,9 +17,17 @@
         grid-template-columns: 25% 25% 25% 25%;
     }
 
+    .gridbox a{
+        text-decoration:none;
+    }
+
 .grid-item{
     padding:5px;
     width: 100%;
+}
+
+.grid-item a:hover{
+    opacity:0.5;
 }
 
 .video-thumbnail{
@@ -28,11 +36,17 @@
 
 .video-title {
     font-size: 18px;
+    display:inline;
 }
 
 .usertag {
     font-size: 14px;
     color: #808080;
+    display:inline;
+}
+
+.grid-item p:hover{
+    text-decoration:underline;
 }
 
 .gridbox.small .video-title {
