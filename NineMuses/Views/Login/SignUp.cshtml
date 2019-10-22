@@ -1,0 +1,27 @@
+﻿@using NineMuses.Models
+@model UserModel
+@{
+    ViewBag.Title = "SignUp";
+}
+
+<h2>SignUp</h2>
+@using (Html.BeginForm("SignUp", "Login", FormMethod.Post, new { id = "signupForm" }))
+{
+    @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", required = "required" })
+    @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", id = "password", required = "required" })
+    <input type="password" , id="passwordCheck" placeholder="Retype password" />
+    <input type="submit" onclick="CheckPassword" />
+}
+
+<script>
+        function CheckPassword() {
+            var pw = document.getElementById("password").value;
+            var pw2 = document.getElementById("passwordCheck").value;
+            if (pw === pw2) {
+                document.forms["signupForm"].submit();
+            }
+            else {
+
+            }
+        }
+</script>

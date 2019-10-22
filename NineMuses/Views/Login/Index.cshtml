@@ -1,0 +1,19 @@
+﻿@using NineMuses.Models
+@model UserModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", required = "required" })
+    @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", required = "required" })
+    <input type="submit" />
+
+    @Html.ValidationSummary("", new { @class = "ErrorText" })
+}
+
+<a href="@Url.Action("SignUp","Login")">Sign Up</a>
