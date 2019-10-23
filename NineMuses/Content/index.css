@@ -26,8 +26,13 @@
     width: 100%;
 }
 
+    .grid-item a {
+        color: #1d3557;
+    }
+
 .grid-item a:hover{
-    opacity:0.5;
+    opacity:0.7;
+    text-decoration:underline;
 }
 
 .video-thumbnail{
