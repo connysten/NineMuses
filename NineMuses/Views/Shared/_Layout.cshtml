@@ -14,10 +14,11 @@
             <a href="@Url.Action("Index", "Home")" class="main-icon ma-">Nine Muses<i class="fas fa-play-circle fa-fw mar-5-l" style="color:#1d3557;"></i></a>
             
             <div class="search-wrapper">
-                <form class="search-box">
-                    <input class="search-field" type="text" placeholder="Search">
-                    <button class="search-icon" type="submit"><i class="fas fa-search fa-fw"></i></button>
-                </form>
+                @using (Html.BeginForm("Index", "Search", FormMethod.Post, new { @class="search-box" }))
+                {
+                <input class="search-field" type="text" placeholder="Search" required name="search">
+                <button class="search-icon" type="submit"><i class="fas fa-search fa-fw"></i></button>
+                }
             </div>
 
             <div class="sign-in-button">

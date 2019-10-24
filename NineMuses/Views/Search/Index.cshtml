@@ -1,0 +1,31 @@
+﻿@using NineMuses.ViewModels
+@model SearchVIewModel
+@{
+    ViewBag.Title = "Search";
+}
+
+@{
+    if (Model.Videos.Count != 0)
+    {
+        <ul>
+
+            @foreach (var video in Model.Videos)
+            {
+            <li>
+                <a href="@video.Source">
+                    <img src="@video.Thumbnail" />
+                    <h2>@video.Title</h2>
+                    <h1>@video.Description</h1>
+                    <p>@video.UploadDate</p>
+                    <p>@video.Views</p>
+                </a>
+            </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <h2>No matches on your search. Please try something else.</h2>
+    }
+}
+
