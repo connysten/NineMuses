@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using NineMuses.Models;
-using NineMuses.ViewModels;
+using NineMuses.Models; 
 
 namespace NineMuses.Controllers
 {
@@ -44,7 +42,6 @@ namespace NineMuses.Controllers
                     };
                     return View(User);
                 }
-
                 //SqlDataReader reader = command.ExecuteReader();
 
                 //if (Convert.ToInt32(command.Parameters["@Responsemessage"].Value) == 1)
@@ -59,11 +56,41 @@ namespace NineMuses.Controllers
                 //    }
                 //    return View(User);
                 //}
-
                 conn.Close();
             }
 
             return RedirectToAction("Index", "Login");
+        }
+
+        [HttpPost]
+        public ActionResult UpdatePassword(UserModel m)
+        {
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+            using (SqlCommand command = new SqlCommand("spChangePassword", conn))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@Username", m.Username);
+                command.Parameters.AddWithValue("@Password", m.Password);
+                command.Parameters.Add("@Responsemessage", SqlDbType.Int).Direction = ParameterDirection.Output;
+                //command.Parameters.Add("@UserID", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+                conn.Open();
+                command.ExecuteNonQuery();
+
+                if (Convert.ToInt32(command.Parameters["@Responsemessage"].Value) == 1)
+                {
+                    ViewData["Message"] = "Password was successfully changed!";
+                    //Session["UserID"] = Convert.ToInt32(command.Parameters["@UserID"].Value);
+                    return RedirectToAction("UserProfile", "Home", new { UserID = Session["UserID"].ToString() });
+                    //new { UserID = Session["UserID"] });
+                }
+            }
+            return View(m);
+        }
+
+        public ActionResult Video()
+        {
+            return View();
         }
 
         public ActionResult About()
