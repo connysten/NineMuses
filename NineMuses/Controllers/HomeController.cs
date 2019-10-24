@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using NineMuses.Models; 
+using NineMuses.Models;
+using NineMuses.ViewModels;
 
 namespace NineMuses.Controllers
 {
@@ -42,6 +44,7 @@ namespace NineMuses.Controllers
                     };
                     return View(User);
                 }
+
                 //SqlDataReader reader = command.ExecuteReader();
 
                 //if (Convert.ToInt32(command.Parameters["@Responsemessage"].Value) == 1)
@@ -56,15 +59,11 @@ namespace NineMuses.Controllers
                 //    }
                 //    return View(User);
                 //}
+
                 conn.Close();
             }
 
             return RedirectToAction("Index", "Login");
-        }
-
-        public ActionResult Video()
-        {
-            return View();
         }
 
         public ActionResult About()

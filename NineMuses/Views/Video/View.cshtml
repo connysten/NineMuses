@@ -1,0 +1,17 @@
+﻿@using NineMuses.ViewModels
+@model ViewVideoViewModel
+@{
+    ViewBag.Title = Model.Video != null ? Model.Video.Title : "Video Not Found";
+}
+@if (Model.Video == null)
+{
+    <div>Video Not Found</div>
+}
+else
+{
+    <video class="video" controls>
+        <source src="@Model.Video.Source" type="video/mp4" />
+        <source src="#.ogg" type="video/ogg" />
+        Your browser does not support the video format.
+    </video>
+}

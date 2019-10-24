@@ -1,0 +1,19 @@
+﻿@using NineMuses.ViewModels
+@model UploadVideoViewModel
+@{
+    ViewBag.Title = "Upload";
+}
+
+<h2>Upload</h2>
+
+@using (Html.BeginForm("Upload", "Video", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.TextBoxFor(m => m.VideoFile, new { placeholder = "VideoFile", type = "File", accept="video/*" })
+    @Html.TextBoxFor(m => m.Video.Title, new { placeholder = "Title", required = "required" })
+    @Html.TextBoxFor(m => m.Video.Description, new { placeholder = "Description" })
+    <input type="submit" />
+
+    @Html.ValidationSummary("", new { @class = "ErrorText" })
+}
