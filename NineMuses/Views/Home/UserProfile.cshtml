@@ -1,8 +1,41 @@
 ﻿@using NineMuses.Models
 @model UserModel
+@Styles.Render("~/Contact/Css")
+
 @{
     ViewBag.Title = "Profile";
 }
 
 <h2>You are logged in! Welcome @Model.Username</h2>
+
+<div>
+    <p>Username: @Model.Username</p>
+
+</div>
+
+<h2>Change Password</h2>
+@using (Html.BeginForm("UpdatePassword", "Home", FormMethod.Post, new { id = "UpdatePasswordForm" }))
+{
+    @Html.HiddenFor(m => m.Username, new { value = Model.Username })
+    @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", id = "password", required = "required" })
+    <input type="password" id="passwordCheck" placeholder="Retype password" />
+    <input type="submit" onclick="CheckPassword" />
+}
+
+<div>
+    <p>Videos</p>
+</div>
+
+    <script>
+        function CheckPassword() {
+            var pw = document.getElementById("password").value;
+            var pw2 = document.getElementById("passwordCheck").value;
+            if (pw === pw2) {
+                document.forms["UpdatePasswordForm"].submit();
+            }
+            else {
+
+            }
+        }
+    </script>
 
