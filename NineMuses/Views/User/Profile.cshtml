@@ -13,6 +13,12 @@
 
 </div>
 
+@using (Html.BeginForm("SignOut", "User", FormMethod.Post, new { id = "SignOutForm" }))
+{
+    @Html.HiddenFor(m => m.Username, new { value = Model.Username })
+    <button>Sign Out</button>
+}
+
 <h2>Change Password</h2>
 @using (Html.BeginForm("UpdatePassword", "User", FormMethod.Post, new { id = "UpdatePasswordForm" }))
 {
@@ -26,16 +32,16 @@
     <p>Videos</p>
 </div>
 
-    <script>
-        function CheckPassword() {
-            var pw = document.getElementById("password").value;
-            var pw2 = document.getElementById("passwordCheck").value;
-            if (pw === pw2) {
-                document.forms["UpdatePasswordForm"].submit();
-            }
-            else {
-
-            }
+<script>
+    function CheckPassword() {
+        var pw = document.getElementById("password").value;
+        var pw2 = document.getElementById("passwordCheck").value;
+        if (pw === pw2) {
+            document.forms["UpdatePasswordForm"].submit();
         }
-    </script>
+        else {
+
+        }
+    }
+</script>
 

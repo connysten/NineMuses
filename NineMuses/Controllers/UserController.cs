@@ -64,6 +64,12 @@ namespace NineMuses.Controllers
             return View(m);
         }
 
+        public ActionResult SignOut()
+        {
+            Session["UserID"] = null;
+            return RedirectToAction("SignIn", "User");
+        }
+
         public new ActionResult Profile(string UserID)
         {
             if (UserID == null || Session["UserID"].ToString() != UserID)
