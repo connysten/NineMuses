@@ -6,7 +6,7 @@
 
 <h2>Index</h2>
 
-@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+@using (Html.BeginForm("SignIn", "User", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     @Html.TextBoxFor(m => m.User.Username, new { placeholder = "Username", required = "required" })
@@ -17,4 +17,4 @@
     @Html.ValidationSummary("", new { @class = "ErrorText" })
 }
 
-<a href="@Url.Action("SignUp","Login")">Sign Up</a>
+<a href="@Url.Action("SignUp","User")">Sign Up</a>

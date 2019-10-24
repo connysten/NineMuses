@@ -14,7 +14,7 @@
 </div>
 
 <h2>Change Password</h2>
-@using (Html.BeginForm("UpdatePassword", "Login", FormMethod.Post, new { id = "UpdatePasswordForm" }))
+@using (Html.BeginForm("UpdatePassword", "User", FormMethod.Post, new { id = "UpdatePasswordForm" }))
 {
     @Html.HiddenFor(m => m.Username, new { value = Model.Username })
     @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", id = "password", required = "required" })

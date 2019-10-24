@@ -5,7 +5,7 @@
 }
 
 <h2>SignUp</h2>
-@using (Html.BeginForm("SignUp", "Login", FormMethod.Post, new { id = "signupForm" }))
+@using (Html.BeginForm("SignUp", "User", FormMethod.Post, new { id = "signupForm" }))
 {
     @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", required = "required" })
     @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", id = "password", required = "required" })

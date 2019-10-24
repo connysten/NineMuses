@@ -12,10 +12,10 @@ using NineMuses.ViewModels;
 
 namespace NineMuses.Controllers
 {
-    public class LoginController : Controller
+    public class UserController : Controller
     {
         // GET: Login
-        public ActionResult Index(string returnUrl)
+        public ActionResult SignIn(string returnUrl)
         {
             if (Session["UserID"] == null)
             {
@@ -25,13 +25,13 @@ namespace NineMuses.Controllers
             }
             else
             {
-                return RedirectToAction("UserProfile", "Home", new { UserID = Session["UserID"].ToString() });
+                return RedirectToAction("Profile", "User", new { UserID = Session["UserID"].ToString() });
             }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(LoginViewModel m)
+        public ActionResult SignIn(LoginViewModel m)
         {
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             using (SqlCommand command = new SqlCommand("spValidateUser", conn))
@@ -54,7 +54,7 @@ namespace NineMuses.Controllers
                         return Redirect(m.ReturnUrl);
                     }
 
-                    return RedirectToAction("UserProfile", "Home", new { UserID = Session["UserID"].ToString() });
+                    return RedirectToAction("Profile", "User", new { UserID = Session["UserID"].ToString() });
                 }
             }
 
@@ -62,6 +62,38 @@ namespace NineMuses.Controllers
             ModelState.SetModelValue("Password", new ValueProviderResult(string.Empty, string.Empty, CultureInfo.InvariantCulture));
 
             return View(m);
+        }
+
+        public new ActionResult Profile(string UserID)
+        {
+            if (UserID == null || Session["UserID"].ToString() != UserID)
+            {
+                return RedirectToAction("SignIn", "User");
+            }
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+            using (SqlCommand command = new SqlCommand("spGetUser", conn))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@Responsemessage", SqlDbType.Int).Direction = ParameterDirection.Output;
+                command.Parameters.AddWithValue("@UserID", UserID);
+                command.Parameters.Add("@Username", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
+
+                conn.Open();
+
+                command.ExecuteNonQuery();
+                if (Convert.ToInt32(command.Parameters["@Responsemessage"].Value) == 1)
+                {
+                    var User = new UserModel
+                    {
+                        Username = (string)command.Parameters["@Username"].Value
+                    };
+                    return View(User);
+                }
+                conn.Close();
+            }
+
+            return RedirectToAction("SignIn", "User");
         }
 
         public ActionResult SignUp()
@@ -87,7 +119,7 @@ namespace NineMuses.Controllers
                 if (Convert.ToInt32(command.Parameters["@Responsemessage"].Value) == 1)
                 {
                     Session["UserID"] = Convert.ToInt32(command.Parameters["@UserID"].Value);
-                    return RedirectToAction("UserProfile", "Home", new { UserID = Session["UserID"] });
+                    return RedirectToAction("Profile", "User", new { UserID = Session["UserID"] });
                 }
             }
 
@@ -113,7 +145,7 @@ namespace NineMuses.Controllers
                 {
                     ViewData["Message"] = "Password was successfully changed!";
                     //Session["UserID"] = Convert.ToInt32(command.Parameters["@UserID"].Value);
-                    return RedirectToAction("UserProfile", "Home", new { UserID = Session["UserID"].ToString() });
+                    return RedirectToAction("Profile", "User", new { UserID = Session["UserID"].ToString() });
                     //new { UserID = Session["UserID"] });
                 }
             }

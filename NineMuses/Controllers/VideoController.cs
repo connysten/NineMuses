@@ -23,7 +23,7 @@ namespace NineMuses.Controllers
             if (Session["UserID"] == null)
             {
 
-                return RedirectToAction("Index", "Login", new { returnUrl = Request.Url.GetComponents(UriComponents.PathAndQuery, UriFormat.SafeUnescaped).ToString() });
+                return RedirectToAction("SignIn", "User", new { returnUrl = Request.Url.GetComponents(UriComponents.PathAndQuery, UriFormat.SafeUnescaped).ToString() });
             }
 
             else
