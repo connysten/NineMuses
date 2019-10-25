@@ -6,7 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using NineMuses.Models; 
+using NineMuses.Models;
+using NineMuses.Repositories;
+using NineMuses.ViewModels;
 
 namespace NineMuses.Controllers
 {
@@ -14,12 +16,12 @@ namespace NineMuses.Controllers
     {
         public ActionResult Index()
         {
-            return View();
-        }
+            IndexViewModel model = new IndexViewModel();
+            var _videoRepo = new VideoRepository();
+            model.MostViewed = _videoRepo.GetIndexView("spGetMostViewedVideos");
+            model.RecentUploads = _videoRepo.GetIndexView("spGetRecentUploads");
 
-        public ActionResult Video()
-        {
-            return View();
+            return View(model);
         }
 
         public ActionResult About()

@@ -13,7 +13,7 @@
 
 </div>
 
-@using (Html.BeginForm("SignOut", "User", FormMethod.Post, new { id = "SignOutForm" }))
+@using (Html.BeginForm("SignOut", "User", FormMethod.Post))
 {
     @Html.HiddenFor(m => m.Username, new { value = Model.Username })
     <button>Sign Out</button>

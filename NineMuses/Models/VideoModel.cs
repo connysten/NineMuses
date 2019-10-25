@@ -8,6 +8,7 @@ namespace NineMuses.Models
     public class VideoModel
     {
         public int UserID { get; set; }
+        public UserModel User { get; set; }
         public int VideoID { get; set; }
         public string Thumbnail { get; set; }
         public string Source { get; set; }
@@ -15,5 +16,14 @@ namespace NineMuses.Models
         public string Description { get; set; }
         public int Views { get; set; }
         public DateTime UploadDate { get; set; }
+
+        public string GetUserName 
+        { 
+            get
+            {
+                return this.User != null ? this.User.Username : null;
+            }
+            
+        }
     }
 }

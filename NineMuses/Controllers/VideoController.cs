@@ -2,6 +2,7 @@
 using MediaToolkit.Model;
 using MediaToolkit.Options;
 using NineMuses.Models;
+using NineMuses.Repositories;
 using NineMuses.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace NineMuses.Controllers
 {
     public class VideoController : Controller
     {
+        private UserRepository _userRepo = new UserRepository();
+        private VideoRepository _videoRepo = new VideoRepository();
 
         public ActionResult Upload()
         {
@@ -41,60 +44,27 @@ namespace NineMuses.Controllers
                 ModelState.AddModelError("", "Video file is required");
                 return View(model);
             }
+
             if (model.Video.Title == null)
             {
                 ModelState.AddModelError("", "Title is required");
                 return View(model);
             }
 
-            string videoUploadFolder = "/UserMedia/Videos";
-            var fileGuid = Guid.NewGuid().ToString();
-            var fileExt = Path.GetExtension(model.VideoFile.FileName);
-            var fileName = fileGuid + fileExt;
-            string VideoDbPath = videoUploadFolder + "/" + fileName;
-            string path = Path.Combine(Server.MapPath(videoUploadFolder), fileName);
+            var id = _videoRepo.Upload(model);
 
-            if (System.IO.File.Exists(path))
+            if (id != 0)
             {
-                fileName = fileName.Split('.')[0] + "(2)." + fileName.Split('.')[1];
-                path = Path.Combine(Server.MapPath(videoUploadFolder), fileName);
-            }
-            model.VideoFile.SaveAs(path);
-
-            string thumbnailUploadFolder = "/UserMedia/Thumbnails";
-            string thumbnailDbPath = thumbnailUploadFolder + "/" + fileGuid + ".jpg";
-
-            var inputFile = new MediaFile { Filename = path };
-            var outputFile = new MediaFile { Filename = Path.Combine(Server.MapPath(thumbnailUploadFolder), fileGuid + ".jpg")};
-            using (var engine = new Engine())
-            {
-                engine.GetMetadata(inputFile);
-
-                // Sparar framen som är under den 5:e sekunden av videon
-                var options = new ConversionOptions { Seek = TimeSpan.FromSeconds(5) };
-                engine.GetThumbnail(inputFile, outputFile, options);
+                return RedirectToAction("View", "Video", new { id = id });
             }
 
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
-            using (SqlCommand command = new SqlCommand("spUploadVideo", conn))
+            else
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@UserID", (int)Session["UserID"]);
-                command.Parameters.AddWithValue("@Title", model.Video.Title);
-                command.Parameters.AddWithValue("@Description", model.Video.Description);
-                command.Parameters.Add("@VideoID", SqlDbType.Int).Direction = ParameterDirection.Output;
-                command.Parameters.AddWithValue("@Source", VideoDbPath);
-                command.Parameters.AddWithValue("@Thumbnail", thumbnailDbPath);
-                conn.Open();
-                command.ExecuteNonQuery();
+                ModelState.AddModelError("", "Something went wrong with the Upload");
 
-                int videoId = 0;
-                if (int.TryParse(command.Parameters["@VideoID"].Value.ToString(), out videoId))
-                {
-                    return RedirectToAction("View", "Video", new { id = videoId });
-                }
+                return View(model);
             }
-            return View(model);
+
         }
 
         public ActionResult View(int id)
@@ -102,41 +72,9 @@ namespace NineMuses.Controllers
             var model = new ViewVideoViewModel();
             if (id != 0)
             {
-
-                using (SqlConnection DBConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
-                {
-                    SqlCommand sqlCmd = new SqlCommand("spGetVideo", DBConn)
-                    {
-                        CommandType = CommandType.StoredProcedure
-                    };
-
-                    sqlCmd.Parameters.Add("@VideoID", SqlDbType.Int).Value = id;
-
-                    DBConn.Open();
-                    var video = new VideoModel();
-
-                    using (var DB = sqlCmd.ExecuteReader())
-                    {
-                        while (DB.Read())
-                        {
-                            video = new VideoModel()
-                            {
-                                Thumbnail = (string)DB["Thumbnail"],
-                                Source = (string)DB["Source"],
-                                Title = (string)DB["Title"],
-                                Description = (string)DB["Description"],
-                                Views = (int)DB["Views"],
-                                UploadDate = (DateTime)DB["UploadDate"]
-                            };
-                           
-                        }
-
-                        model.Video = video;
-                    }
-                }
-
-                return View(model);
+                model.Video = _videoRepo.GetVideo(id, true);
             }
+
             return View(model);
         }
     }

@@ -60,7 +60,6 @@ namespace NineMuses.Controllers
 
             ModelState.AddModelError("", "Incorrect Login");
             ModelState.SetModelValue("Password", new ValueProviderResult(string.Empty, string.Empty, CultureInfo.InvariantCulture));
-
             return View(m);
         }
 
@@ -94,12 +93,11 @@ namespace NineMuses.Controllers
                     {
                         Username = (string)command.Parameters["@Username"].Value
                     };
-                    return View(User);
+                    
                 }
                 conn.Close();
             }
-
-            return RedirectToAction("SignIn", "User");
+            return View(User);
         }
 
         public ActionResult SignUp()
