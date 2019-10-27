@@ -20,6 +20,11 @@
         </div>
     }
 
+    @if(Model.MostViewed.Count == 0)
+    {
+        <h1>No data</h1>
+    }
+
 </div>
 
 <h1 class="gridbox-title  mar-20-t">Most Recent Uploads</h1>
@@ -36,6 +41,11 @@
                 <p class="usertag ellipsis">@(m.GetUserName)</p>
             </a>
         </div>
+    }
+
+    @if (Model.MostViewed.Count == 0)
+    {
+        <h1>No data</h1>
     }
 
 </div>

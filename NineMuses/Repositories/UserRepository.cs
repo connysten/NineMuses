@@ -16,7 +16,7 @@ namespace NineMuses.Repositories
 
         }
 
-        public UserModel GetUser(int id)
+        public UserModel GetUser(long id)
         {
             var User = new UserModel();
 

@@ -44,15 +44,14 @@ namespace NineMuses.Repositories
                     {
                         video = new VideoModel()
                         {
-                            UserID = (int)DB["UserID"],
+                            UserID = (long)DB["UserID"],
                             Thumbnail = (string)DB["Thumbnail"],
                             Source = (string)DB["Source"],
                             Title = (string)DB["Title"],
-                            Description = (string)DB["Description"],
+                            Description = DB["Description"] == DBNull.Value ? "No Description" : (string)DB["Description"],
                             Views = (int)DB["Views"],
                             UploadDate = (DateTime)DB["UploadDate"]
                         };
-
                     }
                 }
             }
@@ -84,15 +83,17 @@ namespace NineMuses.Repositories
                     {
                         var video = new VideoModel
                         {
-                            UserID = (int)DB["UserID"],
+                            UserID = (long)DB["UserID"],
                             VideoID = (int)DB["VideoID"],
                             Thumbnail = (string)DB["Thumbnail"],
                             Source = (string)DB["Source"],
                             Title = (string)DB["Title"],
-                            Description = (string)DB["Description"],
+                            Description = DB["Description"] == DBNull.Value ? "No Description" : (string)DB["Description"],
                             Views = (int)DB["Views"],
                             UploadDate = (DateTime)DB["UploadDate"]
                         };
+
+                        video.User = _userRepo.GetUser(video.UserID);
 
                         returnList.Add(video);
                     }
