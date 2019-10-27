@@ -25,7 +25,7 @@ namespace NineMuses.Controllers
             }
             else
             {
-                return RedirectToAction("Profile", "User", new { UserID = Session["UserID"].ToString() });
+                return RedirectToAction("Profile", "User", new { id = Session["UserID"].ToString() });
             }
         }
 
@@ -54,13 +54,12 @@ namespace NineMuses.Controllers
                         return Redirect(m.ReturnUrl);
                     }
 
-                    return RedirectToAction("Profile", "User", new { UserID = Session["UserID"].ToString() });
+                    return RedirectToAction("Profile", "User", new { id = Session["UserID"].ToString() });
                 }
             }
 
             ModelState.AddModelError("", "Incorrect Login");
             ModelState.SetModelValue("Password", new ValueProviderResult(string.Empty, string.Empty, CultureInfo.InvariantCulture));
-
             return View(m);
         }
 
@@ -70,19 +69,26 @@ namespace NineMuses.Controllers
             return RedirectToAction("SignIn", "User");
         }
 
-        public new ActionResult Profile(string UserID)
+        public new ActionResult Profile(string id)
         {
-            if (UserID == null || Session["UserID"].ToString() != UserID)
+
+            if(Session["UserID"] == null || string.IsNullOrEmpty(Session["UserID"].ToString()))
             {
                 return RedirectToAction("SignIn", "User");
             }
 
+            //if(Session["UserID"].ToString() != id)
+            //{
+            //    return RedirectToAction("OtherProfile", "User");
+            //}
+
+            UserModel User = null;
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             using (SqlCommand command = new SqlCommand("spGetUser", conn))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("@Responsemessage", SqlDbType.Int).Direction = ParameterDirection.Output;
-                command.Parameters.AddWithValue("@UserID", UserID);
+                command.Parameters.AddWithValue("@UserID", id);
                 command.Parameters.Add("@Username", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
 
                 conn.Open();
@@ -90,16 +96,15 @@ namespace NineMuses.Controllers
                 command.ExecuteNonQuery();
                 if (Convert.ToInt32(command.Parameters["@Responsemessage"].Value) == 1)
                 {
-                    var User = new UserModel
+                    User = new UserModel
                     {
                         Username = (string)command.Parameters["@Username"].Value
                     };
-                    return View(User);
+                    
                 }
                 conn.Close();
             }
-
-            return RedirectToAction("SignIn", "User");
+            return View(User);
         }
 
         public ActionResult SignUp()
@@ -107,6 +112,7 @@ namespace NineMuses.Controllers
             return View();
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult SignUp(UserModel m)
         {
@@ -125,7 +131,7 @@ namespace NineMuses.Controllers
                 if (Convert.ToInt32(command.Parameters["@Responsemessage"].Value) == 1)
                 {
                     Session["UserID"] = Convert.ToInt32(command.Parameters["@UserID"].Value);
-                    return RedirectToAction("Profile", "User", new { UserID = Session["UserID"] });
+                    return RedirectToAction("Profile", "User", new { id = Session["UserID"] });
                 }
             }
 
