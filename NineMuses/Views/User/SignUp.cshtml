@@ -13,7 +13,7 @@
                 @Html.AntiForgeryToken()
         <div class="form-row mar-20-t">
             <div class="form-column">
-                @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", required = "required" })
+                @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", required = "required", autocomplete = "off" })
             </div>
         </div>
 

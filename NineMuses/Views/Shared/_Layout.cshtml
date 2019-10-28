@@ -16,8 +16,9 @@
             <div class="search-wrapper">
                 @using (Html.BeginForm("Index", "Search", FormMethod.Post, new { @class = "search-box" }))
                 {
-                <input class="search-field" type="text" placeholder="Search" required name="search">
-                <button class="search-icon" type="submit"><i class="fas fa-search fa-fw"></i></button>
+                    @Html.AntiForgeryToken()
+                    <input class="search-field" type="text" placeholder="Search" required name="search">
+                    <button class="search-icon" type="submit"><i class="fas fa-search fa-fw"></i></button>
                 }
             </div>
 

@@ -21,7 +21,7 @@ namespace NineMuses.Controllers
         }
         
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(string search)
         {
             var model = new SearchViewModel();

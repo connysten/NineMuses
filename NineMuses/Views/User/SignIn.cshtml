@@ -14,7 +14,7 @@
                 @Html.AntiForgeryToken()
                 <div class="form-row mar-20-t">
                     <div class="form-column">
-                        @Html.TextBoxFor(m => m.User.Username, new { placeholder = "Username", required = "required" })
+                        @Html.TextBoxFor(m => m.User.Username, new { placeholder = "Username", required = "required", autocomplete = "off" })
                     </div>
                 </div>
 
@@ -35,7 +35,7 @@
                     @Html.ValidationSummary("", new { @class = "ErrorText" })
                 </div>
 
-                <div class="form-row signUp mar-40-t">
+                <div class="form-row signUp mar-20-t">
                     <a href="@Url.Action("SignUp","User")">New User? Sign Up Here</a>
                 </div>
             }

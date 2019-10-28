@@ -11,8 +11,8 @@
 
     @Html.AntiForgeryToken()
     @Html.TextBoxFor(m => m.VideoFile, new { placeholder = "VideoFile", type = "File", accept="video/*" })
-    @Html.TextBoxFor(m => m.Video.Title, new { placeholder = "Title", required = "required" })
-    @Html.TextBoxFor(m => m.Video.Description, new { placeholder = "Description" })
+    @Html.TextBoxFor(m => m.Video.Title, new { placeholder = "Title", required = "required", autocomplete = "off" })
+    @Html.TextBoxFor(m => m.Video.Description, new { placeholder = "Description", autocomplete = "off" })
     <input type="submit" />
 
     @Html.ValidationSummary("", new { @class = "ErrorText" })
