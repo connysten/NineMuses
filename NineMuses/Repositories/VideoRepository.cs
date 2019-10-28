@@ -66,20 +66,18 @@ namespace NineMuses.Repositories
 
 
 
-        public List<VideoModel> GetIndexView(string storedProcedure)
+        public List<VideoModel> GetVideoList(SqlCommand command)
         {
             List<VideoModel> returnList = new List<VideoModel>();
 
             using (SqlConnection DBConn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             {
-                SqlCommand sqlCmd = new SqlCommand(storedProcedure, DBConn)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
+
+                command.Connection = DBConn;
 
                 DBConn.Open();
 
-                using (var DB = sqlCmd.ExecuteReader())
+                using (var DB = command.ExecuteReader())
                 {
                     while(DB.Read())
                     {

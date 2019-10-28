@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using NineMuses.Models;
+using NineMuses.Repositories;
 using NineMuses.ViewModels;
 
 namespace NineMuses.Controllers
@@ -23,35 +24,18 @@ namespace NineMuses.Controllers
         public ActionResult Index(string search)
         {
             var model = new SearchViewModel();
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
-            using (SqlCommand command = new SqlCommand("spVideoSearch", conn))
+            var _videoRepo = new VideoRepository();
+
+            SqlCommand command = new SqlCommand()
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@SearchString", search);
+                CommandText = "spVideoSearch",
+                CommandType = CommandType.StoredProcedure
+            };
+            command.Parameters.AddWithValue("@SearchString", search);
 
-                conn.Open();
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    var video = new VideoModel();
-                    while (reader.Read())
-                    {
+            model.Videos = _videoRepo.GetVideoList(command);
 
-                        video = new VideoModel()
-                        {
-                            UserID = (long)reader["UserID"],
-                            VideoID = (int)reader["VideoID"],
-                            Thumbnail = (string)reader["Thumbnail"],
-                            Source = (string)reader["Source"],
-                            Title = (string)reader["Title"],
-                            Description = reader["Description"] == DBNull.Value ? "No Description" : (string)reader["Description"],
-                            Views = (int)reader["Views"],
-                            UploadDate = (DateTime)reader["UploadDate"]
-                        };
-                        model.Videos.Add(video);
-                    }
 
-                }
-            }
 
             return View(model);
         }
