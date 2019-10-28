@@ -151,7 +151,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\index.css" />
     <Content Include="Content\Layout.css" />
-    <Content Include="Content\Search.css" />
+    <Content Include="Content\search.css" />
     <Content Include="Content\video.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fa-brands-400.svg" />

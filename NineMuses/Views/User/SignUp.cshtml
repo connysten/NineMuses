@@ -4,6 +4,45 @@
     ViewBag.Title = "SignUp";
 }
 
+    <div class="form-wallpaper">
+        <div class="form-wrapper">
+
+            <h1>Sign Up</h1>
+            @using (Html.BeginForm("SignUp", "User", FormMethod.Post, new { id = "signupForm" }))
+            {
+                @Html.AntiForgeryToken()
+        <div class="form-row mar-20-t">
+            <div class="form-column">
+                @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", required = "required" })
+            </div>
+        </div>
+
+        <div class="form-row mar-10-t">
+            <div class="form-column">
+                @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", id = "password", required = "required" })
+            </div>
+        </div>
+
+        <div class="form-row mar-10-t">
+            <div class="form-column">
+                <input type="password" , id="passwordCheck" placeholder="Retype password" required />
+            </div>
+        </div>
+
+        <div class="form-row error ma-20-t">
+            @Html.ValidationSummary("", new { @class = "ErrorText" })
+        </div>
+
+        <div class="form-row mar-10-t">
+            <div class="form-column">
+                <input type="submit" value="Create User" onclick="return CheckPassword()" />
+            </div>        
+        </div>
+            }
+        </div>
+    </div>
+
+
 <script type="text/javascript">
     function CheckPassword() {
         var pw = document.getElementById("password").value;
@@ -17,15 +56,4 @@
         }
     }
 </script>
-
-<h2>SignUp</h2>
-@using (Html.BeginForm("SignUp", "User", FormMethod.Post, new { id = "signupForm" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", required = "required" })
-    @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", id = "password", required = "required" })
-    <input type="password" , id="passwordCheck" placeholder="Retype password" required />
-    <input type="submit" value="Create User" onclick="return CheckPassword()" />
-}
-
 

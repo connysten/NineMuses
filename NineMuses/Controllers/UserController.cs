@@ -58,10 +58,10 @@ namespace NineMuses.Controllers
                 }
             }
 
-            ModelState.AddModelError("", "Incorrect Login");
+            ModelState.AddModelError("", "Incorrect Username or Password");
             ModelState.SetModelValue("Password", new ValueProviderResult(string.Empty, string.Empty, CultureInfo.InvariantCulture));
             return View(m);
-        }
+        }   
 
         public ActionResult SignOut()
         {

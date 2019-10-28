@@ -28,7 +28,8 @@ namespace NineMuses
                       "~/Content/index.css",
                       "~/Content/assets.css",
                       "~/Content/video.css", 
-                      "~/Content/form.css"));
+                      "~/Content/form.css",
+                      "~/Content/search.css"));
         }
     }
 }
