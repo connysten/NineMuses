@@ -1,5 +1,6 @@
 ﻿@using NineMuses.ViewModels
 @model SearchViewModel
+
 @{
     ViewBag.Title = "Search";
 }
@@ -7,19 +8,31 @@
 @{
     if (Model.Videos.Count != 0)
     {
-        <ul>
+        <ul class="search-list">
 
             @foreach (var video in Model.Videos)
             {
-            <li>
-                <a href="@video.Source">
-                    <img src="@video.Thumbnail" />
-                    <h2>@video.Title</h2>
-                    <h1>@video.Description</h1>
-                    <p>@video.UploadDate</p>
-                    <p>@video.Views</p>
-                </a>
-            </li>
+                <li class="search-item">
+                    <div class="search-item-div">
+                        <a href="@Url.Action("View", "Video", new { id = video.VideoID })">
+                            <img src="@video.Thumbnail"/>
+                            <div class="search-item-thumbnail">
+                                <i class="fas fa-play-circle fa-fw mar-5-l" style="color:#1d3557;"></i>
+                            </div>
+                        </a>
+                        <div class="search-item-info">
+                            <a href="@Url.Action("View", "Video", new { id = video.VideoID })">
+                                <h1>@video.Title</h1>
+                                <p>@video.Description</p>
+                                <p>@video.UploadDate.ToShortDateString()</p>
+                                <p>Views: @video.Views<br /></p>
+                            </a>
+                            <a class="search-item-user" href="@Url.Action("Profile", "User", new { id = video.UserID })">
+                                @video.User.Username
+                            </a>
+                        </div>
+                    </div>
+                </li>
             }
         </ul>
     }
