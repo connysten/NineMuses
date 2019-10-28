@@ -10,8 +10,15 @@
 else
 {
     <video class="video" controls>
-        <source src="@Model.Video.Source" type="video/mp4" />
-        <source src="#.ogg" type="video/ogg" />
+        <source src="@(Model.Video.Source)" type="video/mp4"/>
         Your browser does not support the video format.
     </video>
 }
+
+@*<script>
+    function addView() {
+
+        alert("The video started playing");
+        
+    }
+</script>*@
