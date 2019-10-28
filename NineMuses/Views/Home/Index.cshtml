@@ -28,11 +28,11 @@
 </div>
 
 <h1 class="gridbox-title  mar-20-t">Most Recent Uploads</h1>
-<div class="gridbox small">
+<div class="gridbox big">
 
     @foreach (var m in Model.RecentUploads)
     {
-        <div class="grid-item pad-40-r pad-40-l">
+        <div class="grid-item">
             <a href="@Url.Action("View", "Video", new { id = m.VideoID })">
                 <img src="@(m.Thumbnail)" class="video-thumbnail" />
                 <h1 class="video-title ellipsis">@(m.Title)<br /></h1>
@@ -49,53 +49,3 @@
     }
 
 </div>
-
-@*<h1 class="gridbox-title  mar-20-t">Most Liked Videos</h1>
-
-<div class="gridbox small">
-
-    @{
-        for (int i = 0; i < 4; i++)
-        {
-
-            <div class="grid-item pad-40-r pad-40-l">
-                <a href="#">
-                    <img src="~/Media/testvideoimg.jpg" class="video-thumbnail" />
-                    <h1 class="video-title ellipsis">test title testsdsdsdsdsdsd title<br /></h1>
-                </a>
-
-                <a href="#">
-                    <p class="usertag ellipsis">testuser</p>
-                </a>
-            </div>
-
-        }
-    }
-
-</div>
-
-<h1 class="gridbox-title  mar-20-t">Most Disliked Video</h1>
-
-<div class="gridbox small">
-
-    @{
-        for (int i = 0; i < 4; i++)
-        {
-
-            <div class="grid-item pad-40-r pad-40-l">
-                <a href="#">
-                    <img src="~/Media/testvideoimg.jpg" class="video-thumbnail" />
-                    <h1 class="video-title ellipsis">test title testsdsdsdsdsdsd title<br /></h1>
-                </a>
-
-                <a href="#">
-                    <p class="usertag ellipsis">testuser</p>
-                </a>
-            </div>
-
-        }
-    }
-
-</div>*@
-
-
