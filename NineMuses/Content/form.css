@@ -1,0 +1,67 @@
+﻿.form-wallpaper{
+    display:block;
+    background-image:url(/Media/formwallpaper.jpg);
+    background-size: cover;
+    background-repeat:no-repeat;
+    height:600px;
+}
+
+.form-wrapper {
+    height: 400px;
+    display: inline-block;
+    border-radius: 15px;
+    background-color: #1d3557;
+    text-align: center;
+    padding: 20px;
+    margin:60px;
+}
+
+    .form-wrapper a {
+        text-decoration: none;
+    }
+
+.form-wrapper h1{
+    top:0;
+    color:white;
+    text-decoration:underline;
+}
+
+.form-column {
+}
+
+.form-column input[type="text"], .form-column input[type="password"]{
+    width:300px;
+    padding:10px;
+}
+
+.form-column input[type="submit"] {
+    cursor:pointer;
+    width: 100%;
+    display: block;
+    padding: 15px;
+    background-color: #a8dadc;
+    border: 0;
+    border-radius: 10px;
+    font-weight:bold;
+    color:white;
+    font-size:16px;
+}
+
+    .form-column input[type="submit"]:hover {
+        background-color: #c9e8e8;
+        text-decoration: underline;
+    }
+
+.form-row.signUp a {
+    color: white;
+}
+
+.form-row.signUp a:hover{
+    text-decoration:underline;
+}
+
+.form-row.error li {
+    list-style: none;
+    color: red;
+}
+

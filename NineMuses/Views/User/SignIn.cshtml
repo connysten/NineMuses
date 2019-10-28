@@ -4,17 +4,49 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Sign in</h2>
+    <div class="form-wallpaper">
 
-@using (Html.BeginForm("SignIn", "User", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    @Html.TextBoxFor(m => m.User.Username, new { placeholder = "Username", required = "required" })
-    @Html.TextBoxFor(m => m.User.Password, new { placeholder = "Password", type = "password", required = "required" })
-    @Html.HiddenFor(m => m.ReturnUrl)
-    <input type="submit" />
 
-    @Html.ValidationSummary("", new { @class = "ErrorText" })
-}
 
-<a href="@Url.Action("SignUp","User")">Sign Up</a>
+        <div class="form-wrapper">
+
+            <h1>Sign in</h1>
+            @using (Html.BeginForm("SignIn", "User", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-row mar-20-t">
+                    <div class="form-column">
+                        @Html.TextBoxFor(m => m.User.Username, new { placeholder = "Username", required = "required" })
+                    </div>
+                </div>
+
+                <div class="form-row mar-10-t">
+                    <div class="form-column">
+                        @Html.TextBoxFor(m => m.User.Password, new { placeholder = "Password", type = "password", required = "required" })
+                    </div>
+                </div>
+
+                <div class="form-row mar-10-t">
+                    <div class="form-column">
+                        @Html.HiddenFor(m => m.ReturnUrl)
+                        <input type="submit" value="Sign In" />
+                    </div>
+                </div>
+
+                <div class="form-row error mar-20-t">
+                    @Html.ValidationSummary("", new { @class = "ErrorText" })
+                </div>
+
+                <div class="form-row signUp mar-40-t">
+                    <a href="@Url.Action("SignUp","User")">New User? Sign Up Here</a>
+                </div>
+            }
+
+        </div>
+    </div>
+
+    
+
+
+
+
