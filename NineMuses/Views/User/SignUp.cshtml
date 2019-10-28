@@ -4,24 +4,28 @@
     ViewBag.Title = "SignUp";
 }
 
+<script type="text/javascript">
+    function CheckPassword() {
+        var pw = document.getElementById("password").value;
+        var pw2 = document.getElementById("passwordCheck").value;
+        if (pw === pw2) {
+            document.forms["signupForm"].submit();
+        }
+        else {
+            alert("The passwords aren't the same!");
+            return false;
+        }
+    }
+</script>
+
 <h2>SignUp</h2>
 @using (Html.BeginForm("SignUp", "User", FormMethod.Post, new { id = "signupForm" }))
 {
+    @Html.AntiForgeryToken()
     @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", required = "required" })
     @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", id = "password", required = "required" })
-    <input type="password" , id="passwordCheck" placeholder="Retype password" />
-    <input type="submit" onclick="CheckPassword" />
+    <input type="password" , id="passwordCheck" placeholder="Retype password" required />
+    <input type="submit" value="Create User" onclick="return CheckPassword()" />
 }
 
-<script>
-        function CheckPassword() {
-            var pw = document.getElementById("password").value;
-            var pw2 = document.getElementById("passwordCheck").value;
-            if (pw === pw2) {
-                document.forms["signupForm"].submit();
-            }
-            else {
 
-            }
-        }
-</script>
