@@ -35,8 +35,6 @@ namespace NineMuses.Controllers
 
             model.Videos = _videoRepo.GetVideoList(command);
 
-
-
             return View(model);
         }
     }
