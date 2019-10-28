@@ -1,32 +1,29 @@
-﻿@using NineMuses.Models
-@model UserModel
+﻿@using NineMuses.ViewModels
+@model ProfileViewModel
 @Styles.Render("~/Contact/Css")
 
 @{
     ViewBag.Title = "Profile";
 }
 
-<h2>You are logged in! Welcome @Model.Username</h2>
+<h1>This is @(Model.User.Username)'s Profile page</h1>
 
 <div>
-    <p>Username: @Model.Username</p>
-
+    <p>Username: @Model.User.Username</p>
 </div>
 
-@using (Html.BeginForm("SignOut", "User", FormMethod.Post))
+@if (Convert.ToInt64(Session["UserID"]) == Model.User.UserID)
 {
-    @Html.HiddenFor(m => m.Username, new { value = Model.Username })
-    <button>Sign Out</button>
+    <h2>Change Password</h2>
+    using (Html.BeginForm("UpdatePassword", "User", FormMethod.Post, new { id = "UpdatePasswordForm" }))
+    {
+        @Html.HiddenFor(m => m.User.Username, new { value = Model.User.Username })
+        @Html.TextBoxFor(m => m.User.Password, new { placeholder = "Password", type = "password", id = "password", required = "required" })
+        <input type="password" id="passwordCheck" placeholder="Retype password" />
+        <input type="submit" onclick="CheckPassword" />
+    }
 }
 
-<h2>Change Password</h2>
-@using (Html.BeginForm("UpdatePassword", "User", FormMethod.Post, new { id = "UpdatePasswordForm" }))
-{
-    @Html.HiddenFor(m => m.Username, new { value = Model.Username })
-    @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", id = "password", required = "required" })
-    <input type="password" id="passwordCheck" placeholder="Retype password" />
-    <input type="submit" onclick="CheckPassword" />
-}
 
 <div>
     <p>Videos</p>

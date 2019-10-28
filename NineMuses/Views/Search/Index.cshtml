@@ -27,7 +27,7 @@
                                 <p>@video.UploadDate.ToShortDateString()</p>
                                 <p>Views: @video.Views<br /></p>
                             </a>
-                            <a class="search-item-user" href="@Url.Action("Profile", "User", new { id = video.UserID })">
+                            <a class="search-item-user" href="@Url.Action("Profile", "User", new { id = video.User.UserID })">
                                 @video.User.Username
                             </a>
                         </div>

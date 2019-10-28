@@ -1,5 +1,5 @@
-﻿@using NineMuses.Models
-@model UserModel
+﻿@using NineMuses.ViewModels
+@model SignUpViewModel
 @{
     ViewBag.Title = "SignUp";
 }
@@ -8,7 +8,7 @@
         <div class="form-wrapper">
 
             <h1>Sign Up</h1>
-            @using (Html.BeginForm("SignUp", "User", FormMethod.Post, new { id = "signupForm" }))
+            @using (Html.BeginForm("SignUp", "User", FormMethod.Post, new { id = "signUpForm" }))
             {
                 @Html.AntiForgeryToken()
         <div class="form-row mar-20-t">
@@ -19,41 +19,26 @@
 
         <div class="form-row mar-10-t">
             <div class="form-column">
-                @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", id = "password", required = "required" })
+                @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", required = "required" })
             </div>
         </div>
 
         <div class="form-row mar-10-t">
             <div class="form-column">
-                <input type="password" , id="passwordCheck" placeholder="Retype password" required />
+                @Html.TextBoxFor(m => m.PasswordConfirm, new { placeholder = "Retype Password", type = "password", required = "required" })
             </div>
         </div>
 
-        <div class="form-row error ma-20-t">
+        <div class="form-row error mar-20-t">
             @Html.ValidationSummary("", new { @class = "ErrorText" })
         </div>
 
-        <div class="form-row mar-10-t">
+        <div class="form-row mar-20-t">
             <div class="form-column">
-                <input type="submit" value="Create User" onclick="return CheckPassword()" />
+                <input type="submit" value="Create User" />
             </div>        
         </div>
             }
         </div>
     </div>
-
-
-<script type="text/javascript">
-    function CheckPassword() {
-        var pw = document.getElementById("password").value;
-        var pw2 = document.getElementById("passwordCheck").value;
-        if (pw === pw2) {
-            document.forms["signupForm"].submit();
-        }
-        else {
-            alert("The passwords aren't the same!");
-            return false;
-        }
-    }
-</script>
 

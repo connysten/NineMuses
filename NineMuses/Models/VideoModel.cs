@@ -7,7 +7,6 @@ namespace NineMuses.Models
 {
     public class VideoModel
     {
-        public long UserID { get; set; }
         public UserModel User { get; set; }
         public int VideoID { get; set; }
         public string Thumbnail { get; set; }

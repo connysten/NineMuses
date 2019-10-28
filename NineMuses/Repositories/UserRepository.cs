@@ -1,4 +1,5 @@
 ﻿using NineMuses.Models;
+using NineMuses.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,32 +12,86 @@ namespace NineMuses.Repositories
 {
     public class UserRepository
     {
+
         public UserRepository()
         {
 
         }
 
+        public int SignIn(LoginViewModel model)
+        {
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+            using (SqlCommand command = new SqlCommand("spValidateUser", conn))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@Username", model.User.Username);
+                command.Parameters.AddWithValue("@Password", model.User.Password);
+                command.Parameters.Add("@Responsemessage", SqlDbType.Int).Direction = ParameterDirection.Output;
+                command.Parameters.Add("@UserID", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+                conn.Open();
+                command.ExecuteNonQuery();
+
+                if (Convert.ToInt32(command.Parameters["@Responsemessage"].Value) == 1)
+                {
+                    return Convert.ToInt32(command.Parameters["@UserID"].Value); 
+                }
+
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
+        public int SignUp(SignUpViewModel model)
+        {
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+            using (SqlCommand command = new SqlCommand("spNewUser", conn))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@Username", model.Username);
+                command.Parameters.AddWithValue("@Password", model.Password);
+                command.Parameters.Add("@Responsemessage", SqlDbType.Int).Direction = ParameterDirection.Output;
+                command.Parameters.Add("@UserID", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+                conn.Open();
+                command.ExecuteNonQuery();
+
+                if (Convert.ToInt32(command.Parameters["@Responsemessage"].Value) == 1)
+                {
+                    return Convert.ToInt32(command.Parameters["@UserID"].Value);
+                }
+
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
         public UserModel GetUser(long id)
         {
-            var User = new UserModel();
+            UserModel User = null;
 
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             using (SqlCommand command = new SqlCommand("spGetUser", conn))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@Responsemessage", SqlDbType.Int).Direction = ParameterDirection.Output;
                 command.Parameters.AddWithValue("@UserID", id);
-                command.Parameters.Add("@Username", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
 
                 conn.Open();
 
-                command.ExecuteNonQuery();
-                if (Convert.ToInt32(command.Parameters["@Responsemessage"].Value) == 1)
+                using (var DB = command.ExecuteReader())
                 {
-                    User = new UserModel
+                    while (DB.Read())
                     {
-                        Username = (string)command.Parameters["@Username"].Value
-                    };
+                        User = new UserModel
+                        {
+                            UserID = (long)DB["UserID"],
+                            Username = (string)DB["Username"]
+                        };
+                    }
                 }
                 conn.Close();
             }

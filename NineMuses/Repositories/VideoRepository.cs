@@ -44,7 +44,10 @@ namespace NineMuses.Repositories
                     {
                         video = new VideoModel()
                         {
-                            UserID = (long)DB["UserID"],
+                            User = new UserModel() 
+                            { 
+                                UserID = (long)DB["UserID"] 
+                            },
                             Thumbnail = (string)DB["Thumbnail"],
                             Source = (string)DB["Source"],
                             Title = (string)DB["Title"],
@@ -55,10 +58,11 @@ namespace NineMuses.Repositories
                     }
                 }
             }
+
             //Om withChilds är true får man med sig användarnnamnet
             if (video != null && withChilds)
             {
-                video.User = _userRepo.GetUser(video.UserID);
+                video.User = _userRepo.GetUser(video.User.UserID);
             }
 
             return video;
@@ -83,7 +87,10 @@ namespace NineMuses.Repositories
                     {
                         var video = new VideoModel
                         {
-                            UserID = (long)DB["UserID"],
+                            User = new UserModel()
+                            {
+                                UserID = (long)DB["UserID"]
+                            },
                             VideoID = (int)DB["VideoID"],
                             Thumbnail = (string)DB["Thumbnail"],
                             Source = (string)DB["Source"],
@@ -93,7 +100,7 @@ namespace NineMuses.Repositories
                             UploadDate = (DateTime)DB["UploadDate"]
                         };
 
-                        video.User = _userRepo.GetUser(video.UserID);
+                        video.User = _userRepo.GetUser(video.User.UserID);
 
                         returnList.Add(video);
                     }
@@ -118,8 +125,6 @@ namespace NineMuses.Repositories
             if(model.Video.Description == null)
             {
                 model.Video.Description = "No Description";
-
-
             }
 
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))

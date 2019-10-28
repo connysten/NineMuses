@@ -14,7 +14,7 @@
                 <img src="@m.Thumbnail" class="video-thumbnail" />
                 <h1 class="video-title ellipsis">@(m.Title)<br /></h1>
             </a>
-            <a href="@Url.Action("Profile", "User", new { id = m.UserID })">
+            <a href="@Url.Action("Profile", "User", new { id = m.User.UserID })">
                 <p class="usertag ellipsis">@(m.GetUserName)</p>
             </a>
         </div>
@@ -37,7 +37,7 @@
                 <img src="@(m.Thumbnail)" class="video-thumbnail" />
                 <h1 class="video-title ellipsis">@(m.Title)<br /></h1>
             </a>
-            <a href="#">
+            <a href="@Url.Action("Profile", "User", new { id = m.User.UserID})">
                 <p class="usertag ellipsis">@(m.GetUserName)</p>
             </a>
         </div>
