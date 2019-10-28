@@ -6,7 +6,7 @@ using NineMuses.Models;
 
 namespace NineMuses.ViewModels
 {
-    public class SearchVIewModel
+    public class SearchViewModel
     {
         public List<VideoModel> Videos { get; set; } = new List<VideoModel>();
     }

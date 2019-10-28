@@ -137,7 +137,7 @@
     <Compile Include="Repositories\VideoRepository.cs" />
     <Compile Include="ViewModels\IndexViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\SearchVIewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\UploadVideoViewModel.cs" />
     <Compile Include="ViewModels\ViewVideoViewModel.cs" />
   </ItemGroup>

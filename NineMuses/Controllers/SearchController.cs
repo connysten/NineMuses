@@ -22,7 +22,7 @@ namespace NineMuses.Controllers
         [HttpPost]
         public ActionResult Index(string search)
         {
-            var model = new SearchVIewModel();
+            var model = new SearchViewModel();
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             using (SqlCommand command = new SqlCommand("spVideoSearch", conn))
             {
@@ -35,14 +35,15 @@ namespace NineMuses.Controllers
                     var video = new VideoModel();
                     while (reader.Read())
                     {
+
                         video = new VideoModel()
                         {
-                            UserID = (int)reader["UserID"],
+                            UserID = (long)reader["UserID"],
                             VideoID = (int)reader["VideoID"],
                             Thumbnail = (string)reader["Thumbnail"],
                             Source = (string)reader["Source"],
                             Title = (string)reader["Title"],
-                            Description = (string)reader["Description"],
+                            Description = reader["Description"] == DBNull.Value ? "No Description" : (string)reader["Description"],
                             Views = (int)reader["Views"],
                             UploadDate = (DateTime)reader["UploadDate"]
                         };

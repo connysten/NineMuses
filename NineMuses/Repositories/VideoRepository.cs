@@ -112,7 +112,15 @@ namespace NineMuses.Repositories
             string VideoDbPath = videoUploadFolder + "/" + fileName;
             string path = Path.Combine(HttpContext.Current.Server.MapPath(videoUploadFolder), fileName);
             model.VideoFile.SaveAs(path);
+
             string thumbnailDbPath = CreateThumbnail(fileGuid, path);
+
+            if(model.Video.Description == null)
+            {
+                model.Video.Description = "No Description";
+
+
+            }
 
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             using (SqlCommand command = new SqlCommand("spUploadVideo", conn))
