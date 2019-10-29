@@ -72,12 +72,6 @@ namespace NineMuses.Controllers
                 return RedirectToAction("SignIn", "User");
             }
 
-            //if(Session["UserID"].ToString() != id)
-            //{
-            //    return RedirectToAction("OtherProfile", "User");
-            //}
-
-
             var model = new ProfileViewModel();
 
             if (id != null)
