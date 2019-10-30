@@ -130,6 +130,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SearchUserModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\VideoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -163,6 +164,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Media\img_avatar.png" />
     <Content Include="Media\Logo.png" />
     <Content Include="Media\Logo2.png" />
     <Content Include="Media\testvideoimg.jpg" />

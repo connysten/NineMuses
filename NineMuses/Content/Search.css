@@ -47,6 +47,9 @@
     margin-left: 10px;
 }
 
+.search-item {
+}
+
 
     .search-item:hover {
         background-color: #f1faee
@@ -76,6 +79,7 @@
 
 .search-item-info a {
     padding-left:10px;
+    height: 100%;
 }
 
 .search-item-info a:hover {
