@@ -73,6 +73,14 @@ namespace NineMuses.Controllers
             if (id != 0)
             {
                 model.Video = _videoRepo.GetVideo(id, true);
+
+                SqlCommand command = new SqlCommand()
+                {
+                    CommandText = "spGetUserVideos",
+                    CommandType = CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@id", id);
+                model.VideoList = _videoRepo.GetVideoList(command);
             }
 
             return View(model);

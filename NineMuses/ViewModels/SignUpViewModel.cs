@@ -13,6 +13,7 @@ namespace NineMuses.ViewModels
         public string Password { get; set; }
         
         [Compare("Password", ErrorMessage = "Password Not Matching")]
+
         public string PasswordConfirm { get; set; }
     }
 }

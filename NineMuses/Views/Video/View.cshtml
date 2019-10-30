@@ -3,22 +3,81 @@
 @{
     ViewBag.Title = Model.Video != null ? Model.Video.Title : "Video Not Found";
 }
+
 @if (Model.Video == null)
 {
     <h1>Video Not Found</h1>
 }
 else
 {
-    <video class="video" controls>
-        <source src="@(Model.Video.Source)" type="video/mp4"/>
-        Your browser does not support the video format.
-    </video>
+
+    
+    <div class="video-view-container">
+
+        <div class="main-video-content">
+            <div class="video-container">
+                <video class="video" source src="@(Model.Video.Source)" type="video/mp4" controls>
+                    Your browser does not support the video format.
+                </video>
+
+                @*<div class="video-controls">
+                        <div class="timebar">
+                            <div class="color-bar"></div>
+                        </div>
+                        <div class="video-buttons">
+                            <button id="play-pause"></button>
+                        </div>
+                    </div>*@
+            </div>
+
+            <div class="title-container">
+                <h1>@(Model.Video.Title)</h1>
+            </div>
+
+            <div class="upload-container">
+                <p>Uploaded: @(Model.Video.UploadDate.ToShortDateString())</p>
+            </div>
+
+            <div class="description-container">
+                <p>@(Model.Video.Description)</p>
+            </div>
+        </div>
+
+        <div class="other-videos-container">
+            <h1>More Videos From @(Model.Video.User.Username)</h1>
+
+        </div>
+    </div>
+    
 }
 
-@*<script>
-    function addView() {
+<script>
+    var video = document.querySelector('.video');
+    var colorBar = document.querySelector('.color-bar');
+    var button = document.getElementById('play-pause');
 
-        alert("The video started playing");
-        
+    button.onclick = function () {
+        togglePlayPause();
     }
-</script>*@
+
+    function togglePlayPause() {
+
+        if (video.paused) {
+            button.className = 'pause'; 
+            video.play();
+        }
+        else {
+            button.className = 'play';
+            video.pause();
+        }
+    }
+
+    video.addEventListener("timeupdate", function () {
+        var colorBarPos = video.currentTime / video.duration;
+        colorBar.style.width = colorBarPos * 100 + "%";
+        if (video.ended) {
+            button.className = 'play';
+        }
+    });
+
+</script>

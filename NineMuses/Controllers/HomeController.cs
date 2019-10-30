@@ -18,12 +18,15 @@ namespace NineMuses.Controllers
         {
             IndexViewModel model = new IndexViewModel();
             var _videoRepo = new VideoRepository();
+
             SqlCommand command = new SqlCommand()
             {
                 CommandText = "spGetMostViewedVideos",
                 CommandType = CommandType.StoredProcedure
             };
+
             model.MostViewed = _videoRepo.GetVideoList(command);
+
             command.CommandText = "spGetRecentUploads";
             model.RecentUploads = _videoRepo.GetVideoList(command);
 

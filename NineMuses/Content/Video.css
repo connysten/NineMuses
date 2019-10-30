@@ -1,4 +1,80 @@
-﻿.video{
-    width:100%;
-    height:auto;
+﻿.video-view-container{
+    display:flex;
+    margin:10px;
 }
+
+.main-video-content{
+    display:inline-block;
+}
+
+.video-container{
+    position:relative;
+    width:100%;
+    max-width: 640px;
+    overflow:hidden;
+}
+
+.video-container:hover .video-controls{
+    transform: translateY(0);
+}
+
+.video{
+    width: 100%;
+}
+
+.other-videos-container{
+    display:flex;
+}
+
+/*.video-controls{
+    display:flex;
+    position:absolute;
+    bottom:0;
+    width:100%;
+    flex-wrap: wrap;
+    background: rgba(0, 0, 0, 0.7);
+    transform: translateY(100%) translateY(-5px);
+    transition: all .2s;
+}
+
+.timebar{
+    height:5px;
+    top:0;
+    left:0;
+    width:100%;
+}
+
+.color-bar {
+    height: 5px;
+    background-color: #a8dadc;
+}
+
+.video-buttons{
+    padding:10px;
+}
+
+.video-buttons button{
+    background:none;
+    border: 0;
+    outline: 0;
+    cursor:pointer;
+}
+
+    .video-buttons button:before {
+        content: '\f144';
+        font-family: 'Font Awesome 5 Free';
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        font-size: 28px;
+        color: #a8dadc;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .video-buttons button.play:before {
+        content: '\f144';
+    }
+
+    .video-buttons button.pause:before {
+        content: '\f28b';
+    }*/
