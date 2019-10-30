@@ -1,0 +1,6 @@
+﻿.videogrid {
+    display: grid;
+    grid-row-gap: 0;
+    margin-top: 10px;
+    grid-template: 50% /;
+}
