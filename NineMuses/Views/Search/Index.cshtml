@@ -25,6 +25,7 @@
                         <div class="search-item-info">
                             <a href="@Url.Action("Profile", "User", new { id = Model.Users[i].UserID })">
                                 <h1>@Model.Users[i].Username</h1>
+                                <p>Number of Videos: @Model.Users[i].NrOfVideos</p>
                             </a>
                         </div>
                     </div>

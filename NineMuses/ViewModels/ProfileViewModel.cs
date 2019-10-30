@@ -10,5 +10,6 @@ namespace NineMuses.ViewModels
     {
         public UserModel User { get; set; }
         public List <VideoModel> Videos { get; set; }
+        public bool Admin { get; set; }
     }
 }
