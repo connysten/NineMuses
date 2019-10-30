@@ -1,42 +1,58 @@
 ﻿@using NineMuses.ViewModels
 @model ProfileViewModel
-@Styles.Render("~/Contact/Css")
-
+@Styles.Render("~/Content/Css")
 @{
     ViewBag.Title = "Profile";
 }
 
-<h1>This is @(Model.User.Username)'s Profile page</h1>
+<h2>Welcome to @Model.User.Username's Profile</h2>
 
-<div>
+@*<div class="pad-10">
+    <i class="fas fa-user fa-4x mar-5-r"></i>
     <p>Username: @Model.User.Username</p>
-</div>
-
-@if (Convert.ToInt64(Session["UserID"]) == Model.User.UserID)
+</div>*@
+@if (Model.Admin)
 {
-    <h2>Change Password</h2>
+    <h3>Change Password</h3>
     using (Html.BeginForm("UpdatePassword", "User", FormMethod.Post, new { id = "UpdatePasswordForm" }))
     {
         @Html.HiddenFor(m => m.User.Username, new { value = Model.User.Username })
         @Html.TextBoxFor(m => m.User.Password, new { placeholder = "Password", type = "password", id = "password", required = "required" })
         <input type="password" id="passwordCheck" placeholder="Retype password" />
-        <input type="submit" onclick="CheckPassword" />
+        <input type="submit" onclick="CheckPassword()" />
+        <span id="message"></span>
+    }
+    if (TempData["Message"] != null)
+    {
+        <p><script>alert("\nPassword was successfully changed!");</script></p>
+    }
+
+    using (Html.BeginForm("SignOut", "User", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.User.Username, new { value = Model.User.Username })
+        <button>Sign Out</button>
     }
 }
 
+<h3 class="gridbox-title">Videos</h3>
+<div class="gridbox big">
+    <div class="grid-item">
+        <img src="~/Media/testvideoimg.jpg" class="video-thumbnail" />
+        <h1 class="video-title ellipsis">Some Title<br /></h1>
+    </div>
 
-<div>
-    <p>Videos</p>
 </div>
 
 <script>
     function CheckPassword() {
-        var pw = document.getElementById("password").value;
-        var pw2 = document.getElementById("passwordCheck").value;
-        if (pw === pw2) {
+        //var pw = document.getElementById("password").value;
+        //var pw2 = document.getElementById("passwordCheck").value;
+        if (document.getElementById("password").value === document.getElementById("passwordCheck").value) {
             document.forms["UpdatePasswordForm"].submit();
         }
         else {
+            document.getElementById("message").innerHTML = "Password did not match";
+            document.forms["UpdatePasswordForm"].reset();
 
         }
     }

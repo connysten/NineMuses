@@ -34,7 +34,7 @@ namespace NineMuses.Repositories
 
                 if (Convert.ToInt32(command.Parameters["@Responsemessage"].Value) == 1)
                 {
-                    return Convert.ToInt32(command.Parameters["@UserID"].Value); 
+                    return Convert.ToInt32(command.Parameters["@UserID"].Value);
                 }
 
                 else
@@ -98,5 +98,36 @@ namespace NineMuses.Repositories
 
             return User;
         }
+
+        public List<SearchUserModel> GetUserList(SqlCommand command)
+        {
+            List<SearchUserModel> UserList = new List<SearchUserModel>();
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+            using (command)
+            {
+                command.Connection = conn;
+
+                conn.Open();
+
+                using (var DB = command.ExecuteReader())
+                {
+                    SearchUserModel User = null;
+                    while (DB.Read())
+                    {
+                        User = new SearchUserModel
+                        {
+                            UserID = (long)DB["UserID"],
+                            Username = (string)DB["Username"],
+                            NrOfVideos = (int)DB["NrOfVideos"]
+                        };
+                        UserList.Add(User);
+                    }
+                }
+                conn.Close();
+            }
+            return UserList;
+        }
+
     }
 }

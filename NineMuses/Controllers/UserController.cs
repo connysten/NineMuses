@@ -67,7 +67,7 @@ namespace NineMuses.Controllers
 
         public new ActionResult Profile(long? id)
         {
-            if(Session["UserID"] == null || string.IsNullOrEmpty(Session["UserID"].ToString()))
+            if(id == null && (Session["UserID"] == null || string.IsNullOrEmpty(Session["UserID"].ToString())))
             {
                 return RedirectToAction("SignIn", "User");
             }
@@ -77,7 +77,13 @@ namespace NineMuses.Controllers
             if (id != null)
             {
                 model.User = _userRepo.GetUser((long)id);
+                if ( Session["UserID"] != null && id == (int)Session["UserID"])
+                {
+                    model.Admin = true;
+                }
             }
+
+           
 
             return View(model);
         }
@@ -125,9 +131,9 @@ namespace NineMuses.Controllers
 
                 if (Convert.ToInt32(command.Parameters["@Responsemessage"].Value) == 1)
                 {
-                    ViewData["Message"] = "Password was successfully changed!";
+                    TempData["Message"] = "1";
                     //Session["UserID"] = Convert.ToInt32(command.Parameters["@UserID"].Value);
-                    return RedirectToAction("Profile", "User", new { UserID = Session["UserID"].ToString() });
+                    return RedirectToAction("Profile", "User", new { id = Session["UserID"].ToString() });
                     //new { UserID = Session["UserID"] });
                 }
             }

@@ -26,6 +26,7 @@ namespace NineMuses.Controllers
         {
             var model = new SearchViewModel();
             var _videoRepo = new VideoRepository();
+            var _userRepo = new UserRepository();
 
             SqlCommand command = new SqlCommand()
             {
@@ -35,6 +36,12 @@ namespace NineMuses.Controllers
             command.Parameters.AddWithValue("@SearchString", search);
 
             model.Videos = _videoRepo.GetVideoList(command);
+
+            command.CommandText = "spUserSearch";
+            command.Parameters.Clear();
+            command.Parameters.AddWithValue("@SearchString", search);
+
+            model.Users = _userRepo.GetUserList(command);
 
             return View(model);
         }

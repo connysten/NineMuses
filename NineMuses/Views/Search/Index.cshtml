@@ -6,34 +6,55 @@
 }
 
 @{
-    if (Model.Videos.Count != 0)
-    {
-        <ul class="search-list">
+    int i = 0;
+    int j = 0;
 
-            @foreach (var video in Model.Videos)
+    if (Model.Videos.Count != 0 || Model.Users.Count != 0)
+    {
+
+        <ul class="search-list">
+        @while (i < Model.Users.Count || i < 5 && j < Model.Videos.Count)
+        {
+            if ( i < Model.Users.Count || i == 5)
             {
                 <li class="search-item">
                     <div class="search-item-div">
-                        <a href="@Url.Action("View", "Video", new { id = video.VideoID })">
-                            <img src="@video.Thumbnail"/>
-                            <div class="search-item-thumbnail">
-                                <i class="fas fa-play-circle fa-fw mar-5-l" style="color:#1d3557;"></i>
-                            </div>
+                        <a href="@Url.Action("Profile", "User", new { id = Model.Users[i].UserID })">
+                            <img class="user-thumbnail" src="~/Media/img_avatar.png" />
                         </a>
                         <div class="search-item-info">
-                            <a href="@Url.Action("View", "Video", new { id = video.VideoID })">
-                                <h1>@video.Title</h1>
-                                <p>@video.Description</p>
-                                <p>@video.UploadDate.ToShortDateString()</p>
-                                <p>Views: @video.Views<br /></p>
+                            <a href="@Url.Action("Profile", "User", new { id = Model.Users[i].UserID })">
+                                <h1>@Model.Users[i].Username</h1>
+                                <p>Number of Videos: @Model.Users[i].NrOfVideos</p>
                             </a>
-                            <a class="search-item-user" href="@Url.Action("Profile", "User", new { id = video.User.UserID })">
-                                @video.User.Username
+                        </div>
+                    </div>
+                </li>
+                
+            }
+            for (int k = 0; k < 5 && j < Model.Videos.Count; k++, j++)
+            {
+                <li class="search-item">
+                    <div class="search-item-div">
+                        <a href="@Url.Action("View", "Video", new { id = Model.Videos[j].VideoID })">
+                            <img src="@Model.Videos[j].Thumbnail" />
+                        </a>
+                        <div class="search-item-info">
+                            <a href="@Url.Action("View", "Video", new { id = Model.Videos[j].VideoID })">
+                                <h1>@Model.Videos[j].Title</h1>
+                                <p>@Model.Videos[j].Description</p>
+                                <p>@Model.Videos[j].UploadDate.ToShortDateString()</p>
+                                <p>Views: @Model.Videos[j].Views<br /></p>
+                            </a>
+                            <a class="search-item-user" href="@Url.Action("Profile", "User", new { id = Model.Videos[j].User.UserID })">
+                                @Model.Videos[j].User.Username
                             </a>
                         </div>
                     </div>
                 </li>
             }
+            i++;
+        }
         </ul>
     }
     else
@@ -41,4 +62,27 @@
         <h2>No matches on your search. Please try something else.</h2>
     }
 }
+
+
+
+
+
+        @*<li class="search-item">
+            <div class="search-item-div">
+                <a href="@Url.Action("View", "Video", new { id = video.VideoID })">
+                    <img src="@video.Thumbnail" />
+                </a>
+                <div class="search-item-info">
+                    <a href="@Url.Action("View", "Video", new { id = video.VideoID })">
+                        <h1>@video.Title</h1>
+                        <p>@video.Description</p>
+                        <p>@video.UploadDate.ToShortDateString()</p>
+                        <p>Views: @video.Views<br /></p>
+                    </a>
+                    <a class="search-item-user" href="@Url.Action("Profile", "User", new { id = video.User.UserID })">
+                        @video.User.Username
+                    </a>
+                </div>
+            </div>
+        </li>*@
 
