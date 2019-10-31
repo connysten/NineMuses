@@ -61,27 +61,29 @@
 
     <h3 class="gridbox-title">Videos from @Model.User.Username</h3>
     <div class="gridbox big">
-        @for (var i = 0; i < 4; i++)
+        @foreach (var model in Model.Videos)
         {
-            <div class="grid-item">
-                <img src="~/Media/testvideoimg.jpg" class="video-thumbnail" />
-                <h1 class="video-title ellipsis">Some Title<br /></h1>
-            </div>
-        }
-        @*@foreach (var m in Model.Videos)
-            {
-               <div class="grid-item">
-                   <a href="@Url.Action("View", "Video", new { id = m.VideoID })">
-                       <img src="@m.Thumbnail" class="video-thumbnail" />
-                       <h1 class="video-title ellipsis">@(m.Title)<br /></h1>
-                    </a>
-                    <a href="@Url.Action("Profile", "User", new { id = m.User.UserID })">
-                       <p class="usertag ellipsis">@(m.GetUserName)</p>
-                    </a>
+            <a href="@Url.Action("View", "Video", new { id = model.VideoID })">
+                <div class="grid-item">
+                    <img src="@(model.Thumbnail)" class="video-thumbnail" />
+                    <h1 class="video-title ellipsis">@(model.Title)<br /></h1>
                 </div>
-                  }*@
+                </a>
+                }
+                @*@foreach (var m in Model.Videos)
+                {
+                   <div class="grid-item">
+                       <a href="@Url.Action("View", "Video", new { id = m.VideoID })">
+                           <img src="@m.Thumbnail" class="video-thumbnail" />
+                           <h1 class="video-title ellipsis">@(m.Title)<br /></h1>
+                        </a>
+                        <a href="@Url.Action("Profile", "User", new { id = m.User.UserID })">
+                           <p class="usertag ellipsis">@(m.GetUserName)</p>
+                        </a>
+                    </div>
+                      }*@
 
-    </div>
+        </div>
 
     @*<script>
             function CheckPassword() {

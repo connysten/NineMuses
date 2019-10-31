@@ -73,17 +73,22 @@ namespace NineMuses.Controllers
             }
 
             var model = new ProfileViewModel();
+            var _videoRepo = new VideoRepository();
 
             if (id != null)
             {
                 model.User = _userRepo.GetUser((long)id);
                 if ( Session["UserID"] != null && id == (int)Session["UserID"])
                 {
-                    model.Admin = true;
+                    SqlCommand command = new SqlCommand()
+                    {
+                        CommandText = "spGetUserVideos",
+                        CommandType = CommandType.StoredProcedure
+                    };
+                    command.Parameters.AddWithValue("@id", model.User.UserID);
+                    model.Videos = _videoRepo.GetVideoList(command);
                 }
             }
-
-           
 
             return View(model);
         }
