@@ -67,7 +67,7 @@ namespace NineMuses.Controllers
 
         public new ActionResult Profile(long? id)
         {
-            if(Session["UserID"] == null || string.IsNullOrEmpty(Session["UserID"].ToString()))
+            if(id == null && (Session["UserID"] == null || string.IsNullOrEmpty(Session["UserID"].ToString())))
             {
                 return RedirectToAction("SignIn", "User");
             }
@@ -77,7 +77,13 @@ namespace NineMuses.Controllers
             if (id != null)
             {
                 model.User = _userRepo.GetUser((long)id);
+                if ( Session["UserID"] != null && id == (int)Session["UserID"])
+                {
+                    model.Admin = true;
+                }
             }
+
+           
 
             return View(model);
         }

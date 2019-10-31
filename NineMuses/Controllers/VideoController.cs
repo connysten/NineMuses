@@ -73,9 +73,32 @@ namespace NineMuses.Controllers
             if (id != 0)
             {
                 model.Video = _videoRepo.GetVideo(id, true);
+
+                SqlCommand command = new SqlCommand()
+                {
+                    CommandText = "spGetUserVideos",
+                    CommandType = CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@id", model.Video.User.UserID);
+                model.VideoList = _videoRepo.GetVideoList(command);
+
             }
 
             return View(model);
+        }
+
+        public ActionResult LikeDislike(int id, bool like)
+        {
+            if (like)
+            {
+                // skicka like till db ihop med videoid
+            }
+            else
+            {
+                // skicka dislike till db
+            }
+
+            return Content("True");
         }
     }
 }

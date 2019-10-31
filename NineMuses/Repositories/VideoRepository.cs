@@ -48,6 +48,7 @@ namespace NineMuses.Repositories
                             { 
                                 UserID = (long)DB["UserID"] 
                             },
+                            VideoID = (int)DB["VideoID"],
                             Thumbnail = (string)DB["Thumbnail"],
                             Source = (string)DB["Source"],
                             Title = (string)DB["Title"],

@@ -130,6 +130,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SearchUserModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\VideoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -164,9 +165,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Media\img_avatar.png" />
     <Content Include="Media\Logo.png" />
     <Content Include="Media\Logo2.png" />
     <Content Include="Media\testvideoimg.jpg" />
+    <Content Include="Scripts\Ajax.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\fa-brands-400.eot" />
@@ -192,6 +195,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\polyfill.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

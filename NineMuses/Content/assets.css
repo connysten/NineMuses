@@ -1,4 +1,26 @@
-﻿.pad-5 {
+﻿.fw {
+    width: 100% !important;
+}
+
+.txt-ac{
+    text-align:center !important;
+}
+
+.border-bottom-p10 {
+    padding-bottom: 10px !important;
+    border-bottom: 1px solid #cdcdcd !important;
+}
+
+.f-color-grey{
+    color: #cdcdcd !important;
+}
+
+.bg-col-grey {
+    background-color: #f6f6f6 !important;
+    width:100%;
+}
+
+.pad-5 {
     padding: 5px !important;
 }
 
