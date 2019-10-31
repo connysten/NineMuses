@@ -11,6 +11,10 @@
     border-bottom: 1px solid #cdcdcd !important;
 }
 
+.f-color-grey{
+    color: #cdcdcd !important;
+}
+
 .bg-col-grey {
     background-color: #f6f6f6 !important;
     width:100%;

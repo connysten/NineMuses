@@ -43,8 +43,8 @@
                             <a href="@Url.Action("View", "Video", new { id = Model.Videos[j].VideoID })">
                                 <h1>@Model.Videos[j].Title</h1>
                                 <p>@Model.Videos[j].Description</p>
-                                <p>@Model.Videos[j].UploadDate.ToShortDateString()</p>
-                                <p>Views: @Model.Videos[j].Views<br /></p>
+                                <p class="f-color-grey">@Model.Videos[j].UploadDate.ToShortDateString()</p>
+                                <p class="f-color-grey">Views: @Model.Videos[j].Views<br /></p>
                             </a>
                             <a class="search-item-user" href="@Url.Action("Profile", "User", new { id = Model.Videos[j].User.UserID })">
                                 @Model.Videos[j].User.Username

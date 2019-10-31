@@ -38,6 +38,11 @@
     opacity: 0.7;
 }
 
+.search-item-user {
+    font-weight: bold;
+    color: #1d3557 !important;
+}
+
 .search-item-user:hover {
     text-decoration: underline;
 }
