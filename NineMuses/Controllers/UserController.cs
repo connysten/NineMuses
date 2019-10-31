@@ -109,13 +109,18 @@ namespace NineMuses.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult UpdatePassword(UserModel model)
+        public ActionResult UpdatePassword(ProfileViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             using (SqlCommand command = new SqlCommand("spChangePassword", conn))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@Username", model.Username);
+                command.Parameters.AddWithValue("@Username", model.User.Username);
                 command.Parameters.AddWithValue("@Password", model.Password);
                 command.Parameters.Add("@Responsemessage", SqlDbType.Int).Direction = ParameterDirection.Output;
                 //command.Parameters.Add("@UserID", SqlDbType.Int).Direction = ParameterDirection.Output;

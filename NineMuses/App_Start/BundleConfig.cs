@@ -30,7 +30,8 @@ namespace NineMuses
                       "~/Content/video.css",
                       "~/Content/sign-in-sign.up.css",
                       "~/Content/search.css",
-                      "~/Content/upload.css"));
+                      "~/Content/upload.css",
+                      "~/Content/profile.css"));
         }
     }
 }

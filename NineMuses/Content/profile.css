@@ -1,6 +1,46 @@
-﻿.videogrid {
-    display: grid;
-    grid-row-gap: 0;
-    margin-top: 10px;
-    grid-template: 50% /;
+﻿.profile-container {
+    height: 270px;
+    display: inline-block;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.container-column input[type="password"] {
+    width: 300px;
+    padding: 5px;
+}
+
+.container-column input[type="submit"] {
+    width: 300px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 15px;
+    background-color: #56A1A9;
+    border: 0;
+    border-radius: 10px;
+    font-weight: bold;
+    color: white;
+    font-size: 16px;
+}
+
+.container-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.button {
+    width: 300px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 15px;
+    background-color: #ec5a50;
+    border: 0;
+    border-radius: 10px;
+    font-weight: bold;
+    color: white;
+    font-size: 16px;
 }

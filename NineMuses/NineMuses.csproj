@@ -145,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\assets.css" />
+    <Content Include="Content\profile.css" />
     <Content Include="Content\sign-in-sign.up.css" />
     <Content Include="Content\icons.css" />
     <Content Include="Content\bootstrap-theme.css" />

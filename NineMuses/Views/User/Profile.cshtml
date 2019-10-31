@@ -1,58 +1,100 @@
-﻿@using NineMuses.Models
-@model UserModel
-@Styles.Render("~/Content/Css")
+﻿@using NineMuses.ViewModels
+@model ProfileViewModel
 @{
     ViewBag.Title = "Profile";
 }
 
-<h2>You are logged in! Welcome @Model.Username</h2>
+<h2>This is @(Model.User.Username)'s Profile page</h2>
 
-<div class="pad-10">
-    <i class="fas fa-user fa-4x mar-5-r"></i>
-    <p>Username: @Model.Username</p>
+<div class="profile-container">
+    <i class="fas fa-user fa-10x mar-5-r"></i>
+    <br>
+    <br>
+    <p>Username: @Model.User.Username</p>
 </div>
 
-<h3>Change Password</h3>
-@using (Html.BeginForm("UpdatePassword", "User", FormMethod.Post, new { id = "UpdatePasswordForm" }))
-{
-    @Html.HiddenFor(m => m.Username, new { value = Model.Username })
-    @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", id = "password", required = "required" })
-    <input type="password" id="passwordCheck" placeholder="Retype password" />
-    <input type="submit" onclick="CheckPassword()" />
-    <span id="message"></span>
-}
-@if (TempData["Message"] != null)
-{
-    <p><script>alert("\nPassword was successfully changed!");</script></p>
-}
+<div class="profile-container">
+    @if (Convert.ToInt64(Session["UserID"]) == Model.User.UserID)
+    {
+        <h3>Change Password</h3>
+        using (Html.BeginForm("UpdatePassword", "User", FormMethod.Post, new { id = "UpdatePasswordForm" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.User.Username, new { value = Model.User.Username })
+            <div class="container-row mar-10-t">
+                <div class="container-column">
+                    @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", id = "password", required = "required" })
+                </div>
+            </div>
+            <div class="container-row mar-10-t">
+                <div class="container-column">
+                    @Html.TextBoxFor(m => m.PasswordConfirm, new { placeholder = "Retype Password", type = "password", required = "required" })
+                </div>
+            </div>
+            //<div class="form-row error mar-20-t">
+            @Html.ValidationSummary("", new { @class = "ErrorText" })
+            //</div>
 
-@using (Html.BeginForm("SignOut", "User", FormMethod.Post))
-{
-    @Html.HiddenFor(m => m.Username, new { value = Model.Username })
-    <button>Sign Out</button>
-}
-
-<h3 class="gridbox-title">Videos</h3>
-<div class="gridbox big">
-    <div class="grid-item">
-        <img src="~/Media/testvideoimg.jpg" class="video-thumbnail" />
-        <h1 class="video-title ellipsis">Some Title<br /></h1>
-    </div>
-
-</div>
-
-<script>
-    function CheckPassword() {
-        //var pw = document.getElementById("password").value;
-        //var pw2 = document.getElementById("passwordCheck").value;
-        if (document.getElementById("password").value === document.getElementById("passwordCheck").value) {
-            document.forms["UpdatePasswordForm"].submit();
+            <div class="container-row mar-20-t">
+                <div class="container-column">
+                    <input type="submit" value="Submit" />
+                </div>
+            </div>
         }
-        else {
-            document.getElementById("message").innerHTML = "Password did not match";
-            document.forms["UpdatePasswordForm"].reset();
+        if (TempData["Message"] != null)
+        {
+            <p>
+                <script>alert("\nPassword was successfully changed!");</script>
+            </p>
+        }
 
+
+        using (Html.BeginForm("SignOut", "User", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.User.Username, new { value = Model.User.Username })
+            <div class="container-row mar-10-t">
+                    <button class="button">Sign Out</button>
+            </div>
         }
     }
-</script>
+</div>
+
+    <h3 class="gridbox-title">Videos from @Model.User.Username</h3>
+    <div class="gridbox big">
+        @for (var i = 0; i < 4; i++)
+        {
+            <div class="grid-item">
+                <img src="~/Media/testvideoimg.jpg" class="video-thumbnail" />
+                <h1 class="video-title ellipsis">Some Title<br /></h1>
+            </div>
+        }
+        @*@foreach (var m in Model.Videos)
+            {
+               <div class="grid-item">
+                   <a href="@Url.Action("View", "Video", new { id = m.VideoID })">
+                       <img src="@m.Thumbnail" class="video-thumbnail" />
+                       <h1 class="video-title ellipsis">@(m.Title)<br /></h1>
+                    </a>
+                    <a href="@Url.Action("Profile", "User", new { id = m.User.UserID })">
+                       <p class="usertag ellipsis">@(m.GetUserName)</p>
+                    </a>
+                </div>
+                  }*@
+
+    </div>
+
+    @*<script>
+            function CheckPassword() {
+                //var pw = document.getElementById("password").value;
+                //var pw2 = document.getElementById("passwordCheck").value;
+                if (document.getElementById("password").value === document.getElementById("passwordCheck").value) {
+                    document.forms["UpdatePasswordForm"].submit();
+                }
+                else {
+                    document.getElementById("message").innerHTML = "Password did not match";
+                    document.forms["UpdatePasswordForm"].reset();
+
+                }
+            }
+        </script>*@
 
