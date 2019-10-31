@@ -22,6 +22,10 @@ namespace NineMuses
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            bundles.Add(new ScriptBundle("~/JS/Ajax").Include(
+                      "~/Scripts/Ajax.js",
+                      "~/Scripts/polyfill.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/icons.css",
                       "~/Content/Layout.css",

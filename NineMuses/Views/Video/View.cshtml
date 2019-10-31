@@ -4,6 +4,8 @@
     ViewBag.Title = Model.Video != null ? Model.Video.Title : "Video Not Found";
 }
 
+
+
 @if (Model.Video == null)
 {
     <h1>Video Not Found</h1>
@@ -14,70 +16,100 @@ else
     
     <div class="video-view-container">
 
-        <div class="main-video-content">
+        <div class="main-video-content pad-20-r">
             <div class="video-container">
                 <video class="video" source src="@(Model.Video.Source)" type="video/mp4" controls>
                     Your browser does not support the video format.
                 </video>
 
-                @*<div class="video-controls">
-                        <div class="timebar">
-                            <div class="color-bar"></div>
-                        </div>
-                        <div class="video-buttons">
-                            <button id="play-pause"></button>
-                        </div>
-                    </div>*@
             </div>
 
-            <div class="title-container">
-                <h1>@(Model.Video.Title)</h1>
+            <div class="title-container fw border-bottom-p10">
+
+                <h1 class="fw pad-10-t">@(Model.Video.Title)</h1>
+
+                <div class="right-box mar-5-t">
+                    <button class="like-dislike-btn mar-5-r" data-like="true">
+                        <i class="fas fa-thumbs-up fa-fw mar-5-l"></i>
+                    </button>
+                    <button class="like-dislike-btn" data-like="false">
+                        <i class="fas fa-thumbs-down fa-fw mar-5-l"></i>
+                    </button>
+
+                    <p class="mar-10-t">@(Model.Video.Views) Views</p>
+                </div>
             </div>
 
-            <div class="upload-container">
-                <p>Uploaded: @(Model.Video.UploadDate.ToShortDateString())</p>
+            <div class="upload-date fw mar-10-t">
+                <p>@(Model.Video.UploadDate.ToShortDateString())</p>
             </div>
 
-            <div class="description-container">
+            <div class="bg-col-grey mar-10-t">
+                <div class="video-usertag ">
+                    <a href="@Url.Action("Profile", "User", new { id = Model.Video.User.UserID })">
+                        @(Model.Video.User.Username)
+                    </a>
+                </div>
+
                 <p>@(Model.Video.Description)</p>
             </div>
+            
         </div>
 
-        <div class="other-videos-container">
-            <h1>More Videos From @(Model.Video.User.Username)</h1>
+        <div class="other-videos-container pad-20">
+            <h1 class="border-bottom-p10 mar-10-b txt-ac">More Videos From @(Model.Video.User.Username)</h1>
 
+            @foreach (var video in Model.VideoList)
+            {
+                if (Model.Video.VideoID != video.VideoID)
+                {
+                    <a href="@Url.Action("View", "Video", new { id = video.VideoID })">
+                        <div class="other-videos mar-20-b">
+
+                            <img src="@(video.Thumbnail)" />
+
+                            <div class="other-videos-text pad-10-l pad-10-r">
+                                <p class="ellipsis">@(video.Title)</p>
+                                <p class="ellipsis">@video.UploadDate.ToShortDateString()</p>
+                            </div>
+                        </div>
+
+                    </a>
+                }
+            }
         </div>
     </div>
     
 }
+@Scripts.Render("~/JS/Ajax")
+@section scripts
+{
+    <script>
+        var likeBtns = document.getElementsByClassName("like-dislike-btn");
 
-<script>
-    var video = document.querySelector('.video');
-    var colorBar = document.querySelector('.color-bar');
-    var button = document.getElementById('play-pause');
+        for (var i = 0; i < likeBtns.length; i++) {
+            likeBtns[i].onclick = function (e) {                
+                var elem = e.currentTarget;
 
-    button.onclick = function () {
-        togglePlayPause();
-    }
+                if (elem != null) {
+                    var like = elem.dataset.like;
+                    console.log(like);
 
-    function togglePlayPause() {
+                    var d = new Date();
+                    var getUnitsUrl = "/Video/LikeDislike/@(Model.Video.VideoID)/?like=" + like + "&d=" + d.toISOString();
 
-        if (video.paused) {
-            button.className = 'pause'; 
-            video.play();
+                    ajaxGetBool(getUnitsUrl).then(function (e) {
+                        var success = e;
+
+                        console.log(success);
+                        // gör saker med javascript som att byta class på like/dislike knap
+                        // var likeBtn = document.getElemntById("LikeBtn");
+                        // likeBtn.classList.
+                    });
+                }
+            }
         }
-        else {
-            button.className = 'play';
-            video.pause();
-        }
-    }
 
-    video.addEventListener("timeupdate", function () {
-        var colorBarPos = video.currentTime / video.duration;
-        colorBar.style.width = colorBarPos * 100 + "%";
-        if (video.ended) {
-            button.className = 'play';
-        }
-    });
-
-</script>
+        
+    </script>
+}

@@ -4,77 +4,88 @@
 }
 
 .main-video-content{
-    display:inline-block;
+    display:flex;
+    flex-flow: row wrap;
+    flex: 1;
 }
 
 .video-container{
-    position:relative;
     width:100%;
-    max-width: 640px;
-    overflow:hidden;
 }
 
-.video-container:hover .video-controls{
-    transform: translateY(0);
-}
-
-.video{
+.video-container video{
     width: 100%;
 }
 
-.other-videos-container{
-    display:flex;
+.title-container{
+    display: flex;
+    flex-flow: nowrap row;
 }
 
-/*.video-controls{
-    display:flex;
-    position:absolute;
-    bottom:0;
-    width:100%;
-    flex-wrap: wrap;
-    background: rgba(0, 0, 0, 0.7);
-    transform: translateY(100%) translateY(-5px);
-    transition: all .2s;
+.right-box{
+    text-align:right;
+    width:200px;
 }
 
-.timebar{
-    height:5px;
-    top:0;
-    left:0;
-    width:100%;
+.right-box i {
+    font-size: 20px;
+    color: #cdcdcd;
 }
 
-.color-bar {
-    height: 5px;
-    background-color: #a8dadc;
-}
-
-.video-buttons{
-    padding:10px;
-}
-
-.video-buttons button{
+.right-box button{
     background:none;
-    border: 0;
-    outline: 0;
-    cursor:pointer;
+    border:none;
 }
 
-    .video-buttons button:before {
-        content: '\f144';
-        font-family: 'Font Awesome 5 Free';
-        width: 30px;
-        height: 30px;
-        display: inline-block;
-        font-size: 28px;
-        color: #a8dadc;
-        -webkit-font-smoothing: antialiased;
+.upload-date p {
+    color: #cdcdcd;
+}
+
+.video-usertag a {
+    font-size:20px;
+    font-weight: bold;
+    color: #1d3557;
+    text-decoration: none;
+}
+
+.video-usertag a:hover
+{
+    text-decoration: underline;
+}
+
+.other-videos-container {
+    width: 450px;
+    background-color: #f6f6f6;
+}
+
+.other-videos-container h1{
+    font-size: 16px;
+}
+
+    .other-videos-container a {
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #1d3557;
     }
 
-    .video-buttons button.play:before {
-        content: '\f144';
-    }
+.other-videos:hover{
+    text-decoration:underline;
+    background-color: #f1faee;
+}
 
-    .video-buttons button.pause:before {
-        content: '\f28b';
-    }*/
+.other-videos{
+    display:flex;
+    flex-flow:nowrap;
+}
+
+.other-videos img{
+   max-width: calc(100% - 290px);
+}
+
+.other-videos-text{
+    width:290px;
+}
+
+
+
