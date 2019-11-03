@@ -15,6 +15,7 @@
     padding: 20px;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
     height: 550px;
+    width:400px;
 }
 
 .upload-form-choose-file {
@@ -58,12 +59,23 @@
         color: #335d99;
     }
 
+.file-info {
+    text-align: center;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    margin-top: 10px;
+    color: #1d3557;
+}
+
 .upload-form-title {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
     .upload-form-title input[type="text"] {
-        width: 400px;
+        width: 100%;
         padding: 10px;
         border: none;
         border-radius: 10px;
@@ -73,7 +85,7 @@
 .upload-form-description textarea {
     font-family: Arial;
     margin-top: 10px;
-    width: 400px;
+    width: 100%;
     padding: 10px;
     border: none;
     border-radius: 10px;

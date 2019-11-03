@@ -39,10 +39,10 @@
             <ul class="sidebar-buttons">
                 <li><a href="@Url.Action("Profile", "User", new { id = Session["UserID"] })"><i class="fas fa-user fa-fw mar-5-r"></i>Profile</a></li>
                 <li><a href="@Url.Action("Upload", "Video")"><i class="fas fa-upload fa-fw mar-5-r"></i>Upload</a></li>
-                <li><a href="#"><i class="fas fa-dice mar-5-r"></i>Shuffle Video</a></li>
-                <li><a href="#"><i class="fas fa-info fa-fw mar-5-r"></i>About</a></li>
-                <li><a href="#"><i class="fas fa-address-book fa-fw mar-5-r"></i>Contact</a></li>
-                <li><a href="#"><i class="fas fa-question fa-fw mar-5-r"></i>FAQ</a></li>
+                <li><a href="@Url.Action("Shuffle", "Video")"><i class="fas fa-dice mar-5-r"></i>Shuffle Video</a></li>
+                <li><a href="@Url.Action("About", "Home")"><i class="fas fa-info fa-fw mar-5-r"></i>About</a></li>
+                <li><a href="@Url.Action("Contact", "Home")"><i class="fas fa-address-book fa-fw mar-5-r"></i>Contact</a></li>
+                <li><a href="@Url.Action("FAQ", "Home")"><i class="fas fa-question fa-fw mar-5-r"></i>FAQ</a></li>
 
                 <li class="footer">© Nine Muses 2019</li>
             </ul>

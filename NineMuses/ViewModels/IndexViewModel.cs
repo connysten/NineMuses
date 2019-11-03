@@ -10,5 +10,6 @@ namespace NineMuses.ViewModels
     {
         public List<VideoModel> MostViewed { get; set; } = new List <VideoModel>();
         public List<VideoModel> RecentUploads { get; set; } = new List<VideoModel>();
+        public List<VideoModel> MostLiked { get; set; } = new List<VideoModel>();
     }
 }

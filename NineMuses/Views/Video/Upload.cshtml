@@ -17,7 +17,9 @@
                         <span>Choose File</span>
                     </label>
                 </div>
+                <div id="FileInfo" class="file-info">
 
+                </div>
                 <div class="upload-form-title">
                     @Html.TextBoxFor(m => m.Video.Title, new { placeholder = "Title", required = "required", autocomplete = "off" })
                 </div>
@@ -38,3 +40,19 @@
             </div>
         
     </div>
+
+@section scripts
+{
+    <script>
+        console.dir(document.getElementById("VideoFile"));
+        var videoInput = document.getElementById("VideoFile");
+        var fileInfo = document.getElementById("FileInfo");
+
+        videoInput.onchange = function () {
+            if (this.files.length > 0) {
+                console.log(this.files[0].filename);
+                fileInfo.innerHTML = this.files[0].name + "<br/>" + (Math.round((this.files[0].size / 1048576) * 100) / 100) + "MB";
+            }
+        }
+    </script>
+}

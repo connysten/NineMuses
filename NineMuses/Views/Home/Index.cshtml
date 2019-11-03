@@ -20,7 +20,7 @@
         </div>
     }
 
-    @if(Model.MostViewed.Count == 0)
+    @if (Model.MostViewed.Count == 0)
     {
         <h1>No data</h1>
     }
@@ -31,6 +31,29 @@
 <div class="gridbox big">
 
     @foreach (var m in Model.RecentUploads)
+    {
+        <div class="grid-item">
+            <a href="@Url.Action("View", "Video", new { id = m.VideoID })">
+                <img src="@(m.Thumbnail)" class="video-thumbnail" />
+                <h1 class="video-title ellipsis">@(m.Title)<br /></h1>
+            </a>
+            <a href="@Url.Action("Profile", "User", new { id = m.User.UserID})">
+                <p class="usertag ellipsis">@(m.GetUserName)</p>
+            </a>
+        </div>
+    }
+
+    @if (Model.MostViewed.Count == 0)
+    {
+        <h1>No data</h1>
+    }
+
+</div>
+
+<h1 class="gridbox-title  mar-20-t">Most Liked Videos</h1>
+<div class="gridbox big">
+
+    @foreach (var m in Model.MostLiked)
     {
         <div class="grid-item">
             <a href="@Url.Action("View", "Video", new { id = m.VideoID })">

@@ -37,6 +37,41 @@
     border:none;
 }
 
+.sign-in-text {
+    font-weight:bold;
+    text-decoration: none;
+    color: #1d3557;
+}
+
+.sign-in-text:hover{
+    text-decoration: underline;
+}
+
+.like-dislike-btn.like {
+    color: green;
+}
+
+
+.like-dislike-btn.dislike {
+    color: red;
+}
+
+.color-bar{
+    width:100%;
+    background:red;
+    height: 4px;
+}
+    
+    .color-bar.no-likes {
+        background: #f0f0f0;
+    }
+
+.like-bar{
+    height:100%;
+    display:block;
+    background: Green;
+}
+
 .upload-date p {
     color: #cdcdcd;
 }

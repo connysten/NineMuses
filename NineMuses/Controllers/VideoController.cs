@@ -20,6 +20,7 @@ namespace NineMuses.Controllers
     {
         private UserRepository _userRepo = new UserRepository();
         private VideoRepository _videoRepo = new VideoRepository();
+        private LikeDislikeRepository _likeDislikeRepo = new LikeDislikeRepository();
 
         public ActionResult Upload()
         {
@@ -72,6 +73,7 @@ namespace NineMuses.Controllers
             var model = new ViewVideoViewModel();
             if (id != 0)
             {
+                _videoRepo.AddView(id);
                 model.Video = _videoRepo.GetVideo(id, true);
 
                 SqlCommand command = new SqlCommand()
@@ -81,24 +83,14 @@ namespace NineMuses.Controllers
                 };
                 command.Parameters.AddWithValue("@id", model.Video.User.UserID);
                 model.VideoList = _videoRepo.GetVideoList(command);
-
             }
 
             return View(model);
         }
 
-        public ActionResult LikeDislike(int id, bool like)
+        public ActionResult LikeDislike(int id, bool like, long userID)
         {
-            if (like)
-            {
-                // skicka like till db ihop med videoid
-            }
-            else
-            {
-                // skicka dislike till db
-            }
-
-            return Content("True");
+            return Content(_likeDislikeRepo.LikeDislike(id, like, userID).ToString()); 
         }
     }
 }

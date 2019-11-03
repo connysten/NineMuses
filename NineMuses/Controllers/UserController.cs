@@ -36,7 +36,7 @@ namespace NineMuses.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SignIn(LoginViewModel model)
         {
-            int userId = _userRepo.SignIn(model);
+            long userId = _userRepo.SignIn(model);
 
             if (userId != 0)
             {
@@ -78,8 +78,8 @@ namespace NineMuses.Controllers
             if (id != null)
             {
                 model.User = _userRepo.GetUser((long)id);
-                if ( Session["UserID"] != null && id == (int)Session["UserID"])
-                {
+                //if ( Session["UserID"] != null && id == (long)Session["UserID"])
+                //{
                     SqlCommand command = new SqlCommand()
                     {
                         CommandText = "spGetUserVideos",
@@ -87,7 +87,7 @@ namespace NineMuses.Controllers
                     };
                     command.Parameters.AddWithValue("@id", model.User.UserID);
                     model.Videos = _videoRepo.GetVideoList(command);
-                }
+                //}
             }
 
             return View(model);
