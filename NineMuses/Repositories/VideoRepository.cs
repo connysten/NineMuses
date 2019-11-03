@@ -153,7 +153,7 @@ namespace NineMuses.Repositories
             using (SqlCommand command = new SqlCommand("spUploadVideo", conn))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@UserID", (int)HttpContext.Current.Session["UserID"]);
+                command.Parameters.AddWithValue("@UserID", (long)HttpContext.Current.Session["UserID"]);
                 command.Parameters.AddWithValue("@Title", model.Video.Title);
                 command.Parameters.AddWithValue("@Description", model.Video.Description);
                 command.Parameters.Add("@VideoID", SqlDbType.Int).Direction = ParameterDirection.Output;
