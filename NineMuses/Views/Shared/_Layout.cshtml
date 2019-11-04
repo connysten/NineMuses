@@ -17,7 +17,7 @@
                 @using (Html.BeginForm("Index", "Search", FormMethod.Post, new { @class = "search-box" }))
                 {
                     @Html.AntiForgeryToken()
-                    <input class="search-field" type="text" placeholder="Search" required name="search">
+                    <input autocomplete="off" class="search-field" type="text" placeholder="Search" required name="search">
                     <button class="search-icon" type="submit"><i class="fas fa-search fa-fw"></i></button>
                 }
             </div>
