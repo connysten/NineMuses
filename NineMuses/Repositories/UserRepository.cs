@@ -18,7 +18,7 @@ namespace NineMuses.Repositories
 
         }
 
-        public int SignIn(LoginViewModel model)
+        public long SignIn(LoginViewModel model)
         {
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             using (SqlCommand command = new SqlCommand("spValidateUser", conn))

@@ -17,10 +17,12 @@ namespace NineMuses.Repositories
     public class VideoRepository
     {
         private UserRepository _userRepo;
+        private LikeDislikeRepository _likeRepo;
 
         public VideoRepository()
         {
             _userRepo = new UserRepository();
+            _likeRepo = new LikeDislikeRepository();
         }
 
         public VideoModel GetVideo(int id, bool withChilds)
@@ -60,7 +62,9 @@ namespace NineMuses.Repositories
                 }
             }
 
-            //Om withChilds är true får man med sig användarnnamnet
+           
+            video.Likes = _likeRepo.GetVideoLikes(video.VideoID, true);
+
             if (video != null && withChilds)
             {
                 video.User = _userRepo.GetUser(video.User.UserID);
@@ -102,6 +106,7 @@ namespace NineMuses.Repositories
                         };
 
                         video.User = _userRepo.GetUser(video.User.UserID);
+                        video.Likes = _likeRepo.GetVideoLikes(video.VideoID, true);
 
                         returnList.Add(video);
                     }
@@ -109,6 +114,22 @@ namespace NineMuses.Repositories
             }
 
             return returnList;
+        }
+
+        public List<VideoModel> GetMostLiked(int videoCount)
+        {
+            SqlCommand command = new SqlCommand()
+            {
+                CommandText = "spGetAllVideos",
+                CommandType = CommandType.StoredProcedure
+            };
+
+            var videos = GetVideoList(command);
+            var videosOrdered = videos.OrderByDescending(x => x.GetLikes);
+            var final = videosOrdered.Take(videoCount);
+
+            return final.ToList();
+            //return videos.OrderByDescending(x => x.GetLikes).Take(videoCount).ToList();
         }
 
         public int Upload(UploadVideoViewModel model)
@@ -132,7 +153,7 @@ namespace NineMuses.Repositories
             using (SqlCommand command = new SqlCommand("spUploadVideo", conn))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@UserID", (int)HttpContext.Current.Session["UserID"]);
+                command.Parameters.AddWithValue("@UserID", (long)HttpContext.Current.Session["UserID"]);
                 command.Parameters.AddWithValue("@Title", model.Video.Title);
                 command.Parameters.AddWithValue("@Description", model.Video.Description);
                 command.Parameters.Add("@VideoID", SqlDbType.Int).Direction = ParameterDirection.Output;
@@ -148,6 +169,19 @@ namespace NineMuses.Repositories
             }
 
             return 0;
+        }
+
+        public void AddView(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+            using (SqlCommand command = new SqlCommand("spIncreaseViewCount", conn))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@VideoID", id);
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+
         }
 
         public string CreateThumbnail(string fileGuid, string path)

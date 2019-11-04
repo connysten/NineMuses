@@ -70,34 +70,8 @@
                     <h1 class="video-title ellipsis">@(model.Title)<br /></h1>
                 </div>
                 </a>
-                }
-                @*@foreach (var m in Model.Videos)
-                {
-                   <div class="grid-item">
-                       <a href="@Url.Action("View", "Video", new { id = m.VideoID })">
-                           <img src="@m.Thumbnail" class="video-thumbnail" />
-                           <h1 class="video-title ellipsis">@(m.Title)<br /></h1>
-                        </a>
-                        <a href="@Url.Action("Profile", "User", new { id = m.User.UserID })">
-                           <p class="usertag ellipsis">@(m.GetUserName)</p>
-                        </a>
-                    </div>
-                      }*@
+         }
 
         </div>
 
-    @*<script>
-            function CheckPassword() {
-                //var pw = document.getElementById("password").value;
-                //var pw2 = document.getElementById("passwordCheck").value;
-                if (document.getElementById("password").value === document.getElementById("passwordCheck").value) {
-                    document.forms["UpdatePasswordForm"].submit();
-                }
-                else {
-                    document.getElementById("message").innerHTML = "Password did not match";
-                    document.forms["UpdatePasswordForm"].reset();
-
-                }
-            }
-        </script>*@
 

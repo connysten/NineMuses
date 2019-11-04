@@ -30,6 +30,8 @@ namespace NineMuses.Controllers
             command.CommandText = "spGetRecentUploads";
             model.RecentUploads = _videoRepo.GetVideoList(command);
 
+            model.MostLiked = _videoRepo.GetMostLiked(4);
+
             return View(model);
         }
 
@@ -41,6 +43,13 @@ namespace NineMuses.Controllers
         }
 
         public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult FAQ()
         {
             ViewBag.Message = "Your contact page.";
 
