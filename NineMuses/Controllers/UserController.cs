@@ -124,7 +124,7 @@ namespace NineMuses.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return RedirectToAction("Profile", "User", new { id = Session["UserID"]});
             }
 
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
@@ -147,7 +147,7 @@ namespace NineMuses.Controllers
                     //new { UserID = Session["UserID"] });
                 }
             }
-            return View(model);
+            return RedirectToAction("Profile", "User", model);
         }
     }
 }
