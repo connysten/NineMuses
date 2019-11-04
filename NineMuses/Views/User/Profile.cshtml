@@ -20,7 +20,7 @@
         using (Html.BeginForm("UpdatePassword", "User", FormMethod.Post, new { id = "UpdatePasswordForm" }))
         {
             @Html.AntiForgeryToken()
-            @Html.HiddenFor(m => m.User.Username, new { value = Model.User.Username })
+            @Html.HiddenFor(m => m.User , new { value = Model.User })
             <div class="container-row mar-10-t">
                 <div class="container-column">
                     @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", id = "password", required = "required" })
@@ -31,9 +31,10 @@
                     @Html.TextBoxFor(m => m.PasswordConfirm, new { placeholder = "Retype Password", type = "password", required = "required" })
                 </div>
             </div>
-            //<div class="form-row error mar-20-t">
-            @Html.ValidationSummary("", new { @class = "ErrorText" })
-            //</div>
+
+            <div class="form-row error mar-20-t">
+                @Html.ValidationSummary("", new { @class = "ErrorText" })
+            </div>
 
             <div class="container-row mar-20-t">
                 <div class="container-column">
