@@ -92,5 +92,10 @@ namespace NineMuses.Controllers
         {
             return Content(_likeDislikeRepo.LikeDislike(id, like, userID).ToString()); 
         }
+
+        public ActionResult Shuffle()
+        {
+            return RedirectToAction("View", new { id = _videoRepo.GetRandomVideoID() });
+        }
     }
 }

@@ -202,5 +202,22 @@ namespace NineMuses.Repositories
 
             return thumbnailDbPath;
         }
+
+        public int GetRandomVideoID()
+        {
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+            using (SqlCommand command = new SqlCommand("spGetRandomVideoID", conn))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                SqlParameter param = new SqlParameter("@VideoID", SqlDbType.Int);
+                param.Direction = ParameterDirection.Output;
+                command.Parameters.Add(param);
+                conn.Open();
+                command.ExecuteNonQuery();
+
+
+                return (int)param.Value;
+            }
+        }
     }
 }
