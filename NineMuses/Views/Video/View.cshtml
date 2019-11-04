@@ -56,6 +56,7 @@ else
                                 likeOn = "";
                             }
                         }
+
                         else
                         {
                             // None of the above
@@ -70,12 +71,8 @@ else
 
                     @if (Session["UserID"] != null)
                     {
-                        @*<button id="LikeButton" class="like-dislike-btn mar-5-r@(likeActive)@(likeOn)" data-like="true">*@
-                            <i id="LikeButton" class="fas fa-thumbs-up fa-fw mar-5-l like-dislike-btn@(likeActive)@(likeOn)" data-like="true"></i>
-                        @*</button>*@
-                        @*<button id="DislikeButton" class="like-dislike-btn@(dislikeActive)@(dislikeOn)" data-like="false">*@
-                            <i id="DislikeButton" class="fas fa-thumbs-down fa-fw mar-5-l like-dislike-btn@(dislikeActive)@(dislikeOn)" data-like="false"></i>
-                        @*</button>*@
+                        <i id="LikeButton" class="fas fa-thumbs-up fa-fw mar-5-l like-dislike-btn@(likeActive)@(likeOn)" data-like="true"></i>
+                        <i id="DislikeButton" class="fas fa-thumbs-down fa-fw mar-5-l like-dislike-btn@(dislikeActive)@(dislikeOn)" data-like="false"></i>
                     }
 
                     else
@@ -90,6 +87,7 @@ else
                             colorClass = " no-likes";
                         }
                        }
+
                     <div class="color-bar mar-5-t@(colorClass)">
                         <div class="like-bar" style="width: @(Model.Video.GetLikePrecentage.ToString().Replace(",", "."))%;" >
                             

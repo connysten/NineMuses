@@ -47,7 +47,6 @@ namespace NineMuses.Repositories
                             Like = (bool)DB["Like"]
                         };
 
-                        //Om withChilds är true får man med sig användarnnamnet
                         if (withChilds)
                         {
                             like.User = _userRepo.GetUser(like.UserID);

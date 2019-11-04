@@ -62,7 +62,7 @@ namespace NineMuses.Repositories
                 }
             }
 
-            //Om withChilds är true får man med sig användarnnamnet
+           
             video.Likes = _likeRepo.GetVideoLikes(video.VideoID, true);
 
             if (video != null && withChilds)
