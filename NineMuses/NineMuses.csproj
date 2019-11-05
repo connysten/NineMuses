@@ -159,7 +159,7 @@
     <Content Include="Content\Layout.css" />
     <Content Include="Content\search.css" />
     <Content Include="Content\upload.css" />
-    <Content Include="Content\video.css" />
+    <Content Include="Content\view.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fa-brands-400.svg" />
     <Content Include="fonts\fa-regular-400.svg" />

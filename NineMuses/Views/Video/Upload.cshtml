@@ -4,6 +4,13 @@
     ViewBag.Title = "Upload";
 }
 
+<style>
+    .main-content{
+        padding: 0 !important;
+    }
+</style>
+
+
     <div class="upload-form-container">
         <div class="upload-form-wrapper">
             @using (Html.BeginForm("Upload", "Video", FormMethod.Post, new { enctype = "multipart/form-data" }))

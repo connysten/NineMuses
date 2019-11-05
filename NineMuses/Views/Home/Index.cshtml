@@ -14,6 +14,7 @@
                 <img src="@m.Thumbnail" class="video-thumbnail" />
                 <h1 class="video-title ellipsis">@(m.Title)<br /></h1>
             </a>
+            <span>@(m.Views) Views</span>
             <a href="@Url.Action("Profile", "User", new { id = m.User.UserID })">
                 <p class="usertag ellipsis">@(m.GetUserName)</p>
             </a>
@@ -37,6 +38,7 @@
                 <img src="@(m.Thumbnail)" class="video-thumbnail" />
                 <h1 class="video-title ellipsis">@(m.Title)<br /></h1>
             </a>
+            <span>@(m.UploadDate.ToShortDateString())</span>
             <a href="@Url.Action("Profile", "User", new { id = m.User.UserID})">
                 <p class="usertag ellipsis">@(m.GetUserName)</p>
             </a>
@@ -55,15 +57,25 @@
 
     @foreach (var m in Model.MostLiked)
     {
-        <div class="grid-item">
-            <a href="@Url.Action("View", "Video", new { id = m.VideoID })">
-                <img src="@(m.Thumbnail)" class="video-thumbnail" />
-                <h1 class="video-title ellipsis">@(m.Title)<br /></h1>
-            </a>
-            <a href="@Url.Action("Profile", "User", new { id = m.User.UserID})">
-                <p class="usertag ellipsis">@(m.GetUserName)</p>
-            </a>
-        </div>
+    <div class="grid-item">
+        <a href="@Url.Action("View", "Video", new { id = m.VideoID })">
+            <img src="@(m.Thumbnail)" class="video-thumbnail" />
+            <h1 class="video-title ellipsis">@(m.Title)<br /></h1>
+        </a>
+
+        @if (m.GetLikes == 1)
+        {
+            <span>@(m.GetLikes) Like</span>
+        }
+        @if (m.GetLikes > 1)
+        {
+            <span>@(m.GetLikes) Likes</span>
+        }
+
+        <a href="@Url.Action("Profile", "User", new { id = m.User.UserID})">
+            <p class="usertag ellipsis">@(m.GetUserName)</p>
+        </a>
+    </div>
     }
 
     @if (Model.MostViewed.Count == 0)

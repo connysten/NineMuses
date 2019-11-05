@@ -103,7 +103,8 @@ html, body {
     display: flex;
     flex-direction: column;
     flex-flow: nowrap;
-    background-color: #a8dadc;
+    background-color: #f6f6f6;
+    /*background-color: #7fcacc;*/
 }
 
 .sidebar-buttons {
@@ -115,6 +116,7 @@ html, body {
 
     .sidebar-buttons li {
         font-size: 20px;
+        /*transition: background-color 0.3s ease-in-out;*/
     }
 
     .sidebar-buttons a {
@@ -124,13 +126,17 @@ html, body {
         color: black;
         height: 100%;
         width: 100%;
+        transition: color 0.3s ease-in-out;
     }
 
-    .sidebar-buttons li:not(:last-child):hover{
-        background-color: #f1faee;
+    .sidebar-buttons li:not(:last-child):hover {
+        background-color: #1d3557;
     }
 
-
+    .sidebar-buttons li:not(:last-child):hover a {
+        color:white;
+    }
+    
 .footer {
     position: absolute;
     bottom: 0;
@@ -149,7 +155,8 @@ html, body {
     width: 100%;
     height: calc(100% - 80px);
     overflow: auto;
-    padding:10px;
+    padding: 10px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
 }
 
 

@@ -22,9 +22,19 @@
     flex-flow: nowrap row;
 }
 
-.right-box{
-    text-align:right;
-    width:200px;
+.upload-usertag-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.right-box {
+    text-align: right;
+    width: 200px;
+}
+
+.views-text {
+    color: #1d3557; 
+    font-size:20px;
 }
 
 .right-box i {
@@ -72,7 +82,7 @@
     background: Green;
 }
 
-.upload-date p {
+.upload-date {
     color: #cdcdcd;
 }
 

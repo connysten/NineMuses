@@ -5,6 +5,12 @@
 }
 
 
+<style>
+    .main-content{
+        overflow-y:scroll;
+    }
+</style>
+
 
 @if (Model.Video == null)
 {
@@ -13,7 +19,6 @@
 
 else
 {
-
 
     <div class="video-view-container">
 
@@ -27,7 +32,12 @@ else
 
             <div class="title-container fw border-bottom-p10">
 
-                <h1 class="fw pad-10-t">@(Model.Video.Title)</h1>
+                <div class="fw">
+                    <h1 class="fw pad-10-t">@(Model.Video.Title)</h1>
+
+                    <p class="upload-date mar-5-l">@(Model.Video.UploadDate.ToShortDateString())</p>
+
+                </div>
 
                 <div class="right-box mar-5-t">
                     @{
@@ -67,12 +77,12 @@ else
                         }
                     }
 
-                    <p class="mar-10-t">@(Model.Video.Views) Views</p>
+                    <p class="views-text">@(Model.Video.Views) Views</p>
 
                     @if (Session["UserID"] != null)
                     {
-                        <i id="LikeButton" class="fas fa-thumbs-up fa-fw mar-5-l like-dislike-btn@(likeActive)@(likeOn)" data-like="true"></i>
-                        <i id="DislikeButton" class="fas fa-thumbs-down fa-fw mar-5-l like-dislike-btn@(dislikeActive)@(dislikeOn)" data-like="false"></i>
+                        <i id="LikeButton" class="fas fa-thumbs-up fa-fw mar-5-l mar-10-t like-dislike-btn@(likeActive)@(likeOn)" data-like="true"></i>
+                        <i id="DislikeButton" class="fas fa-thumbs-down fa-fw mar-10-l mar-10-t like-dislike-btn@(dislikeActive)@(dislikeOn)" data-like="false"></i>
                     }
 
                     else
@@ -80,37 +90,36 @@ else
                         <a class="sign-in-text" href="@Url.Action("SignIn", "User", new { returnUrl = Request.Url.GetComponents(UriComponents.PathAndQuery, UriFormat.SafeUnescaped).ToString() })">Sign In To Like/Dislike </a>
                     }
 
-                    @{ 
+                    @{
                         var colorClass = "";
                         if (Model.Video.Likes.Count == 0)
                         {
                             colorClass = " no-likes";
                         }
-                       }
+                    }
 
-                    <div class="color-bar mar-5-t@(colorClass)">
-                        <div class="like-bar" style="width: @(Model.Video.GetLikePrecentage.ToString().Replace(",", "."))%;" >
-                            
+                    <div class="color-bar mar-10-t@(colorClass)">
+                        <div class="like-bar" style="width: @(Model.Video.GetLikePrecentage.ToString().Replace(",", "."))%;">
+
                         </div>
                     </div>
 
                 </div>
             </div>
 
-            <div class="upload-date fw mar-10-t">
-                <p>@(Model.Video.UploadDate.ToShortDateString())</p>
+            <div class="video-usertag mar-10-t">
+                <a href="@Url.Action("Profile", "User", new { id = Model.Video.User.UserID })">
+                    <i class="fas fa-user fa-fw mar-10-r"></i>@(Model.Video.User.Username)
+                </a>
             </div>
 
-            <div class="bg-col-grey mar-10-t">
-                <div class="video-usertag ">
-                    <a href="@Url.Action("Profile", "User", new { id = Model.Video.User.UserID })">
-                        @(Model.Video.User.Username)
-                    </a>
-                </div>
+            <div class="bg-col-grey mar-10-t pad-10">
+
+
 
                 <p>@(Model.Video.Description)</p>
             </div>
-            
+
         </div>
 
         <div class="other-videos-container pad-20">
